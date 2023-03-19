@@ -133,16 +133,13 @@ int main()
             vertices.push_back(y);
             vertices.push_back(z);
 
-
-
             angle += increment;
+
         } else if(i % 2 != 0 && i != numOfAngles){
 
-            if(i == 1 || i == 3 || i == 5 || i == 7){
-                vertices.push_back(0.0f);
-                vertices.push_back(0.0f);
-                vertices.push_back(0.0f);
-            }
+            vertices.push_back(0.0f);
+            vertices.push_back(0.0f);
+            vertices.push_back(0.0f);
 
             x = long_point * glm::cos(angle + glm::pi<float>()/6);
             y = long_point * glm::sin(angle + glm::pi<float>()/6);
@@ -150,6 +147,7 @@ int main()
             vertices.push_back(x);
             vertices.push_back(y);
             vertices.push_back(z);
+
             angle += 2*increment;
         }
     }

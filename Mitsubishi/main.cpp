@@ -116,7 +116,8 @@ int main()
     float radius = 0.5f;
     float increment = glm::pi<float>()/ 3;
     float x,y,z=0.0f;
-    float r = 2 * sqrt(pow(radius,2) - pow(radius/2, 2));
+    float distance_from_center_to_tips = 2 * sqrt(pow(radius, 2) - pow(radius / 2, 2));
+
     for(int i=0; i<numOfAngles+1; i++){
 
         if(i % 2 == 0){
@@ -133,8 +134,8 @@ int main()
         vertices.push_back(z);
 
         if(i % 2 == 0){
-            vertices.push_back(r * glm::cos(tips));
-            vertices.push_back(r * glm::sin(tips));
+            vertices.push_back(distance_from_center_to_tips * glm::cos(tips));
+            vertices.push_back(distance_from_center_to_tips * glm::sin(tips));
             vertices.push_back(0.0f);
             tips += incrementTips;
         }

@@ -111,80 +111,60 @@ int main()
 
     float angle = 0.0f;
     float numOfAngles = 360;
-    float radius = 0.8f;
-    float radius1 = 0.3f;
+    float radius_outer = 0.8f;
+    float radius_inner = 0.3f;
     float increment = 2 * glm::pi<float>()/ numOfAngles;
     float next_part = glm::pi<float>() / 3;
     float x,y,z=0.0f;
     float x1,y1,z1=0.0f;
 
     int count = 0;
-    int count_outer = 0;
 
     for(int j=0; j<3; j++){
-//        vertices.push_back(0.0f);
-//        vertices.push_back(0.0f);
-//        vertices.push_back(0.0f);
-//        count++;
-
-//        x1 = radius1 * glm::cos(angle);
-//        y1 = radius1 * glm::sin(angle);
-//
-//        vertices.push_back(x1);
-//        vertices.push_back(y1);
-//        vertices.push_back(z1);
-//        count++;
 
         while(angle <= (j+j+1) * glm::pi<float>()/3){
 
-
-            x = radius * glm::cos(angle);
-            y = radius * glm::sin(angle);
+            x = radius_outer * glm::cos(angle);
+            y = radius_outer * glm::sin(angle);
 
             vertices.push_back(x);
             vertices.push_back(y);
             vertices.push_back(z);
 
-            //count_outer++;
             count++;
 
-            //if(count_outer % 2 == 0){
-            x1 = radius1 * glm::cos(angle);
-            y1 = radius1 * glm::sin(angle);
+            x1 = radius_inner * glm::cos(angle);
+            y1 = radius_inner * glm::sin(angle);
 
             vertices.push_back(x1);
             vertices.push_back(y1);
             vertices.push_back(z1);
+
             count++;
-            //}
-
-
-
 
             angle += increment;
         }
-        x1 = radius1 * glm::cos(angle);
-        y1 = radius1 * glm::sin(angle);
+        x1 = radius_inner * glm::cos(angle);
+        y1 = radius_inner * glm::sin(angle);
 
         vertices.push_back(x1);
         vertices.push_back(y1);
         vertices.push_back(z1);
-//        vertices.push_back(0.0f);
-//        vertices.push_back(0.0f);
-//        vertices.push_back(0.0f);
+
         count++;
-        count_outer = 0;
+
         angle += next_part;
     }
 
     float num_of_ang_circle = 30;
     increment = 2 * glm::pi<float>() / num_of_ang_circle;
     angle = 0.0f;
-    radius = 0.2f;
+    radius_outer = 0.2f;
+
     for(int i=0; i<num_of_ang_circle+1; i++){
 
-        x = radius * glm::cos(angle);
-        y = radius * glm::sin(angle);
+        x = radius_outer * glm::cos(angle);
+        y = radius_outer * glm::sin(angle);
 
         vertices.push_back(x);
         vertices.push_back(y);

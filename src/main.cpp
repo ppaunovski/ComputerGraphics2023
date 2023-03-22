@@ -1,27 +1,29 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
+#include <vector>
+#include "OpenGLPrj.hpp"
 #include <iostream>
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
 // settings
 const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_HEIGHT = 800;
 
 static const char *vertexShaderSource = "#version 330 core\n"
-    "layout (location = 0) in vec3 aPos;\n"
-    "void main()\n"
-    "{\n"
-    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-    "}\0";
+                                        "layout (location = 0) in vec3 aPos;\n"
+                                        "void main()\n"
+                                        "{\n"
+                                        "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+                                        "}\0";
 static const char *fragmentShaderSource = "#version 330 core\n"
-    "out vec4 FragColor;\n"
-    "void main()\n"
-    "{\n"
-    "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-    "}\n\0";
+                                          "out vec4 FragColor;\n"
+                                          "void main()\n"
+                                          "{\n"
+                                          "   FragColor = vec4(1.0f, 0.5f, 0.0f, 1.0f);\n"
+                                          "}\n\0";
 
 int main()
 {
@@ -99,11 +101,57 @@ int main()
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-    float vertices[] = {
-        -0.5f, -0.5f, 0.0f, // left
-         0.5f, -0.5f, 0.0f, // right
-         0.0f,  0.5f, 0.0f  // top
+    float vertices_a[] = {
+            -0.5f, -0.5f, 0.0f, // left
+            0.5f, -0.5f, 0.0f, // right
+            0.0f,  0.5f, 0.0f  // top
     };
+
+    std::vector<float> vertices;
+
+    float angle = glm::pi<float>()/6;
+    float numOfAngles = 8;
+    float long_point = 1.0f;
+    float increment = glm::pi<float>()/ 6;
+    float x,y,z=0.0f;
+    // pi/6 eden agol
+    for(int i=0; i<numOfAngles+1; i++){
+
+        x = long_point/2 * glm::cos(angle);
+        y = long_point/2 * glm::sin(angle);
+
+        vertices.push_back(x);
+        vertices.push_back(y);
+        vertices.push_back(z);
+
+        if(i % 2 == 0 && i != numOfAngles){
+
+            x = long_point * glm::cos(angle + glm::pi<float>()/12);
+            y = long_point * glm::sin(angle + glm::pi<float>()/12);
+
+            vertices.push_back(x);
+            vertices.push_back(y);
+            vertices.push_back(z);
+
+            angle += increment;
+
+        } else if(i % 2 != 0 && i != numOfAngles){
+
+            vertices.push_back(0.0f);
+            vertices.push_back(0.0f);
+            vertices.push_back(0.0f);
+
+            x = long_point * glm::cos(angle + glm::pi<float>()/6);
+            y = long_point * glm::sin(angle + glm::pi<float>()/6);
+
+            vertices.push_back(x);
+            vertices.push_back(y);
+            vertices.push_back(z);
+
+            angle += 2*increment;
+        }
+    }
+
 
     unsigned int VBO, VAO;
     glGenVertexArrays(1, &VAO);
@@ -112,18 +160,17 @@ int main()
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), &vertices[0], GL_STATIC_DRAW);
+    //glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_a), vertices_a, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
     glEnableVertexAttribArray(0);
 
-    // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's
-    // bound vertex buffer object so afterwards we can safely unbind
+    // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO,
-    // but this rarely happens. Modifying other VAOs requires a call to glBindVertexArray anyways
-    // so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
+    // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
+    // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
     glBindVertexArray(0);
 
 
@@ -132,6 +179,7 @@ int main()
 
     // render loop
     // -----------
+    glPointSize(20);
     while (!glfwWindowShouldClose(window))
     {
         // input
@@ -140,16 +188,29 @@ int main()
 
         // render
         // ------
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.1f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         // draw our first triangle
         glUseProgram(shaderProgram);
+        glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
+        for(int i=0; i<4; i++){
+            glDrawArrays(GL_LINE_STRIP, 5*i, 3);
+        }
+        for(int i=0; i<4; i++){
+            glDrawArrays(GL_TRIANGLE_STRIP, 5*i+2, 4);
+        }
+//        glDrawArrays( GL_LINE_STRIP, 0, 3);
+//        glDrawArrays( GL_TRIANGLE_STRIP, 2, 4);
+//        glDrawArrays( GL_LINE_STRIP, 5, 3);
+//        glDrawArrays( GL_TRIANGLE_STRIP, 7, 4);
+//        glDrawArrays( GL_LINE_STRIP, 10, 3);
+//        glDrawArrays( GL_TRIANGLE_STRIP, 12, 4);
+//        glDrawArrays( GL_LINE_STRIP, 15, 3);
+//        glDrawArrays( GL_TRIANGLE_STRIP, 17, 4);
 
-        // seeing as we only have a single VAO there's no need to bind it every time,
-        // but we'll do so to keep things a bit more organized
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        //glDrawArrays(GL_POINTS, 0, vertices.size());
+
         // glBindVertexArray(0); // no need to unbind it every time
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -185,3 +246,4 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
 }
+

@@ -18,7 +18,6 @@ float checkerboard(vec2 uv, vec2 textureSize){
 void main()
 {
     vec2 uv = TexCoord.xy;
-    uv.x *= textureSize.x / textureSize.y;
     float c = mix(1.0, 0.0f, checkerboard(uv, textureSize));
     FragColor = vec4(c,c,c,1.0);
 }

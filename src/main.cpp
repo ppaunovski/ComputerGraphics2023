@@ -153,7 +153,7 @@ int main()
         // render container
         ourShader.use();
         int texture_size = glGetUniformLocation(ourShader.ID, "textureSize");
-        glUniform2f(texture_size, 4.0, 4.0);
+        glUniform2f(texture_size, 8.0, 8.0);
         glBindVertexArray(VAO);
         //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
         glDrawArrays(GL_TRIANGLE_FAN, 0, 4);

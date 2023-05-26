@@ -182,11 +182,30 @@ int main() {
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, texture2);
 
-    // create transformations
     glm::mat4 transform = glm::mat4(1.0f);
-    transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
-    transform = glm::rotate(transform, static_cast<float>(glfwGetTime()),
-                            glm::vec3(0.0f, 0.0f, 1.0f));
+      if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
+          // create transformations
+          transform = glm::translate(transform, glm::vec3(0.0f, 0.1f, 0.0f));
+          transform = glm::rotate(transform, 0.0f,
+                                  glm::vec3(0.0f, 0.0f, 1.0f));
+
+      }
+      else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS){
+          transform = glm::translate(transform, glm::vec3(-0.1f, 0.0f, 0.0f));
+          transform = glm::rotate(transform, glm::pi<float>()/2,
+                                  glm::vec3(0.0f, 0.0f, 1.0f));
+      }
+      else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+          transform = glm::translate(transform, glm::vec3(0.0f, -0.1f, 0.0f));
+          transform = glm::rotate(transform, glm::pi<float>(),
+                                  glm::vec3(0.0f, 0.0f, 1.0f));
+      }
+      else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
+          transform = glm::translate(transform, glm::vec3(0.1f, 0.0f, 0.0f));
+          transform = glm::rotate(transform, 3*glm::pi<float>() / 2,
+                                  glm::vec3(0.0f, 0.0f, 1.0f));
+      }
+
 
     // render container
     ourShader.use();

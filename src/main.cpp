@@ -1,5 +1,3 @@
-// preku shaders ama izmesteni se polovite
-
 
 #include <OpenGLPrj.hpp>
 
@@ -10,9 +8,12 @@
 #include <iostream>
 #include <cstring>
 #include <vector>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 
-const std::string program_name = ("GLSL Shader class example");
+const std::string program_name = ("Pacman");
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -21,6 +22,24 @@ void processInput(GLFWwindow *window);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 800;
 
+void updateInput(GLFWwindow *window, glm::vec3 &position, glm::vec3 &rotation, glm::vec3 &scale){
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS){
+        position.y += 0.0001f;
+        rotation.z = 90.f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS){
+        position.x -= 0.0001f;
+        rotation.z = 180.f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS){
+        position.y -= 0.0001f;
+        rotation.z = 270.f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
+        position.x += 0.0001f;
+        rotation.z = 0.f;
+    }
+}
 
 int main()
 {
@@ -79,61 +98,47 @@ int main()
     float x_prev = 0.0f, y_prev = 0.0f, z_prev = 0.0f;
     float r_prev = 1.0f, g_prev = 0.0f, b_prev = 0.0f;
     float r = 1.0f, g = 0.0f, b = 0.0f;
-    float radius = 0.5f;
+    float radius = 0.1f;
     float angle = 0.0f;
     float inc = 1.0f / 60.0f;
+    int count = 0;
+
+    vertices.push_back(0.0f);
+    vertices.push_back(0.0f);
+    vertices.push_back(0.0f);
+    vertices.push_back(1.0f);
+    vertices.push_back(1.0f);
+    vertices.push_back(0.0f);
+    count++;
 
     for(int i=0; i<numOfAngles + 1; i++){
 
-        vertices.push_back(x_prev);
-        vertices.push_back(y_prev);
-        vertices.push_back(z_prev);
-        vertices.push_back(r_prev);
-        vertices.push_back(g_prev);
-        vertices.push_back(b_prev);
+        if(angle > glm::pi<float>()/8 && angle < 15*glm::pi<float>()/8){
+            x = radius * glm::cos(angle);
+            y = radius * glm::sin(angle);
 
-        x = radius * glm::cos(angle);
-        y = radius * glm::sin(angle);
+            vertices.push_back(x);
+            vertices.push_back(y);
+            vertices.push_back(z);
 
-        vertices.push_back(x);
-        vertices.push_back(y);
-        vertices.push_back(z);
-
-        if(i < 60){
-            g += inc;
-        } else if(i < 120){
-            r -= inc;
-        } else if(i < 180){
-            b += inc;
-        } else if(i < 240){
-            g -= inc;
-        } else if(i < 300){
-            r += inc;
-        } else{
-            b -= inc;
+            vertices.push_back(1.0f);
+            vertices.push_back(1.0f);
+            vertices.push_back(0.0f);
+            count++;
         }
-
-        vertices.push_back(r);
-        vertices.push_back(g);
-        vertices.push_back(b);
-
-        vertices.push_back(0.0f);
-        vertices.push_back(0.0f);
-        vertices.push_back(0.0f);
-        vertices.push_back(r);
-        vertices.push_back(g);
-        vertices.push_back(b);
-
-        x_prev = x;
-        z_prev = z;
-        y_prev = y;
-
-        r_prev = r;
-        g_prev = g;
-        b_prev = b;
 
         angle += increment;
     }
+
+    vertices.push_back(0.0f);
+    vertices.push_back(0.0f);
+    vertices.push_back(0.0f);
+    vertices.push_back(1.0f);
+    vertices.push_back(1.0f);
+    vertices.push_back(0.0f);
+    count++;
+
+
 
     unsigned int VBO, VAO;
     glGenVertexArrays(1, &VAO);
@@ -160,6 +165,20 @@ int main()
     // just bind it beforehand before rendering the respective triangle; this is another approach.
     glBindVertexArray(VAO);
 
+    glm::vec3 position(0.f);
+    glm::vec3 rotation(0.f);
+    glm::vec3 scale(1.f);
+
+    glm::mat4 ModelMatrix(1.f);
+    ModelMatrix = glm::translate(ModelMatrix, position);
+    ModelMatrix = glm::rotate(ModelMatrix, glm::radians(rotation.x), glm::vec3(1.f,0.f,0.f));
+    ModelMatrix = glm::rotate(ModelMatrix, glm::radians(rotation.y), glm::vec3(0.f,1.f,0.f));
+    ModelMatrix = glm::rotate(ModelMatrix, glm::radians(rotation.z), glm::vec3(0.f,0.f,1.f));
+    ModelMatrix = glm::scale(ModelMatrix, scale);
+
+    ourShader.use();
+    glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "transform"), 1, GL_FALSE, glm::value_ptr(ModelMatrix));
+
 
     // render loop
     // -----------
@@ -169,22 +188,41 @@ int main()
         // -----
         processInput(window);
 
+
         // render
         // ------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        // Move rotate and scale
+        updateInput(window, position, rotation, scale);
+
+        glm::mat4 ModelMatrix(1.f);
+        ModelMatrix = glm::translate(ModelMatrix, position);
+        ModelMatrix = glm::rotate(ModelMatrix, glm::radians(rotation.x), glm::vec3(1.f,0.f,0.f));
+        ModelMatrix = glm::rotate(ModelMatrix, glm::radians(rotation.y), glm::vec3(0.f,1.f,0.f));
+        ModelMatrix = glm::rotate(ModelMatrix, glm::radians(rotation.z), glm::vec3(0.f,0.f,1.f));
+        ModelMatrix = glm::scale(ModelMatrix, scale);
+
+        glUniformMatrix4fv(glGetUniformLocation(ourShader.ID, "transform"), 1, GL_FALSE, glm::value_ptr(ModelMatrix));
+
+//        glm::mat4 trans = glm::mat4(1.0f);
+//        trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+//        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+//            trans = glm::translate(trans, position += glm::vec3(0.0f, 0.1f, 0.0f));
+//
+//        unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
+//        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+
         // render the triangle
         ourShader.use();
         glBindVertexArray(VAO);
-        for(int i=0; i<numOfAngles+1; i++){
-            glDrawArrays(GL_TRIANGLES, i*3, 3);
-        }
-
+        glDrawArrays(GL_TRIANGLE_FAN, 0, count+1);
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
         glfwPollEvents();
+
 
     }
 
@@ -206,6 +244,7 @@ void processInput(GLFWwindow *window)
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 }
+
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
 // ---------------------------------------------------------------------------------------------

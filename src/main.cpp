@@ -198,6 +198,7 @@ int main()
         updateInput(window, position, rotation, scale);
 
         glm::mat4 ModelMatrix(1.f);
+
         ModelMatrix = glm::translate(ModelMatrix, position);
         ModelMatrix = glm::rotate(ModelMatrix, glm::radians(rotation.x), glm::vec3(1.f,0.f,0.f));
         ModelMatrix = glm::rotate(ModelMatrix, glm::radians(rotation.y), glm::vec3(0.f,1.f,0.f));

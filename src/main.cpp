@@ -127,59 +127,70 @@ int main() {
 //    }
 
     int theta, phi;
-    int d_theta=5, d_phi=5;
+    int d_theta=2, d_phi=2;
     float x, y, z;
-    float r=0.5f, g=0.5f, b=0.5f;
+    float r=1.0f, g=1.0f, b=0.0f;
     float DTOR = 0.0174532925;
     int counter=0;
 
     for(theta = -90; theta <= 90-d_theta; theta += d_theta){
 
         for (phi = 0; phi <= 360-d_phi; phi += d_phi){
-            x = glm::cos(theta*DTOR) * glm::cos(phi*DTOR);
-            y = glm::cos(theta*DTOR) * glm::sin(phi*DTOR);
-            z = glm::sin(theta*DTOR);
-
-            vert.push_back(x);
-            vert.push_back(y);
-            vert.push_back(z);
-            vert.push_back(r);
-            vert.push_back(g);
-            vert.push_back(b);
-            counter++;
-
-            x = glm::cos((theta+d_theta)*DTOR) * glm::cos(phi*DTOR);
-            y = glm::cos((theta+d_theta)*DTOR) * glm::sin(phi*DTOR);
-            z = glm::sin((theta+d_theta)*DTOR);
-
-            vert.push_back(x);
-            vert.push_back(y);
-            vert.push_back(z);
-            vert.push_back(r);
-            vert.push_back(g);
-            vert.push_back(b);
-            counter++;
-
-            x = glm::cos((theta+d_theta)*DTOR) * glm::cos((phi+d_phi)*DTOR);
-            y = glm::cos((theta+d_theta)*DTOR) * glm::sin((phi+d_phi)*DTOR);
-            z = glm::sin((theta+d_theta)*DTOR);
-
-            vert.push_back(x);
-            vert.push_back(y);
-            vert.push_back(z);
-            vert.push_back(r);
-            vert.push_back(g);
-            vert.push_back(b);
-            counter++;
-
-            if (theta > -90 && theta < 90){
-                x = glm::cos(theta*DTOR) * glm::cos((phi+d_phi)*DTOR);
-                y = glm::cos(theta*DTOR) * glm::sin((phi+d_phi)*DTOR);
+            if (phi > 60){
+                x = glm::cos(theta*DTOR) * glm::cos(phi*DTOR);
+                y = glm::cos(theta*DTOR) * glm::sin(phi*DTOR);
                 z = glm::sin(theta*DTOR);
 
                 vert.push_back(x);
                 vert.push_back(y);
                 vert.push_back(z);
+                vert.push_back(r);
+                vert.push_back(g);
+                vert.push_back(b);
+                counter++;
+
+                x = glm::cos((theta+d_theta)*DTOR) * glm::cos(phi*DTOR);
+                y = glm::cos((theta+d_theta)*DTOR) * glm::sin(phi*DTOR);
+                z = glm::sin((theta+d_theta)*DTOR);
+
+                vert.push_back(x);
+                vert.push_back(y);
+                vert.push_back(z);
+                vert.push_back(r);
+                vert.push_back(g);
+                vert.push_back(b);
+                counter++;
+
+                x = glm::cos((theta+d_theta)*DTOR) * glm::cos((phi+d_phi)*DTOR);
+                y = glm::cos((theta+d_theta)*DTOR) * glm::sin((phi+d_phi)*DTOR);
+                z = glm::sin((theta+d_theta)*DTOR);
+
+                vert.push_back(x);
+                vert.push_back(y);
+                vert.push_back(z);
+                vert.push_back(r);
+                vert.push_back(g);
+                vert.push_back(b);
+                counter++;
+
+                if (theta > -90 && theta < 90){
+                    x = glm::cos(theta*DTOR) * glm::cos((phi+d_phi)*DTOR);
+                    y = glm::cos(theta*DTOR) * glm::sin((phi+d_phi)*DTOR);
+                    z = glm::sin(theta*DTOR);
+
+                    vert.push_back(x);
+                    vert.push_back(y);
+                    vert.push_back(z);
+                    vert.push_back(r);
+                    vert.push_back(g);
+                    vert.push_back(b);
+                    counter++;
+                }
+            }
+            else{
+                vert.push_back(0.0f);
+                vert.push_back(0.0f);
+                vert.push_back(0.0f);
                 vert.push_back(r);
                 vert.push_back(g);
                 vert.push_back(b);
@@ -231,8 +242,8 @@ int main() {
         glm::mat4 projection = glm::mat4(1.0f);
 
         model = model =
-                glm::rotate(model,  static_cast<float>(glfwGetTime())/3.5f,
-                            glm::vec3(0.1f, 0.1f, 0.1f));
+                glm::rotate(model,  static_cast<float>(glfwGetTime())/2.0f,
+                            glm::vec3(0.f, 0.1f, 0.1f));
         view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
         projection =
                 glm::perspective(glm::radians(45.0f),

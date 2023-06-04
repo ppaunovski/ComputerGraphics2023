@@ -117,59 +117,77 @@ int main() {
 
     std::vector<float> vert;
 
-    for (int i=0; i<36; i++){
-        vert.push_back(vertices[6*i]);
-        vert.push_back(vertices[6*i+1]);
-        vert.push_back(vertices[6*i+2]);
-        vert.push_back(vertices[6*i+3]);
-        vert.push_back(vertices[6*i+4]);
-        vert.push_back(vertices[6*i+5]);
-    }
+//    for (int i=0; i<36; i++){
+//        vert.push_back(vertices[6*i]);
+//        vert.push_back(vertices[6*i+1]);
+//        vert.push_back(vertices[6*i+2]);
+//        vert.push_back(vertices[6*i+3]);
+//        vert.push_back(vertices[6*i+4]);
+//        vert.push_back(vertices[6*i+5]);
+//    }
 
-    float numOfAngles = 360;
-    float increment = 2 * glm::pi<float>() / numOfAngles;
-    float x, y, z = 0.0f;
-    float x1, y1, z1 = 0.0f;
-    float radius = 0.5f;
-    float radius_inner = 0.3f;
-    float angle = 0.0f;
-    int disks = 1000;
-    int count = 0;
+    int theta, phi;
+    int d_theta=5, d_phi=5;
+    float x, y, z;
+    float r=0.5f, g=0.5f, b=0.5f;
+    float DTOR = 0.0174532925;
+    int counter=0;
 
-    for(int j=0; j<disks; j++){
-        z -= 0.0005f;
-        angle = 0.0f;
-        for(int i=0; i<numOfAngles + 1; i++){
-            x1 = radius_inner * glm::cos(angle)+0.3f;
-            y1 = radius_inner * glm::sin(angle);
+    for(theta = -90; theta <= 90-d_theta; theta += d_theta){
 
-            x = radius * glm::cos(angle)+0.3f;
-            y = radius * glm::sin(angle);
-
-            vert.push_back(x1);
-            vert.push_back(y1);
-            vert.push_back(z);
-            vert.push_back( 0.2f);
-            vert.push_back(0.5f);
-            vert.push_back(1.0f);
-
+        for (phi = 0; phi <= 360-d_phi; phi += d_phi){
+            x = glm::cos(theta*DTOR) * glm::cos(phi*DTOR);
+            y = glm::cos(theta*DTOR) * glm::sin(phi*DTOR);
+            z = glm::sin(theta*DTOR);
 
             vert.push_back(x);
             vert.push_back(y);
             vert.push_back(z);
-            vert.push_back( 0.2f);
-            vert.push_back(0.5f);
-            vert.push_back(1.0f);
+            vert.push_back(r);
+            vert.push_back(g);
+            vert.push_back(b);
+            counter++;
 
-            angle += increment;
+            x = glm::cos((theta+d_theta)*DTOR) * glm::cos(phi*DTOR);
+            y = glm::cos((theta+d_theta)*DTOR) * glm::sin(phi*DTOR);
+            z = glm::sin((theta+d_theta)*DTOR);
+
+            vert.push_back(x);
+            vert.push_back(y);
+            vert.push_back(z);
+            vert.push_back(r);
+            vert.push_back(g);
+            vert.push_back(b);
+            counter++;
+
+            x = glm::cos((theta+d_theta)*DTOR) * glm::cos((phi+d_phi)*DTOR);
+            y = glm::cos((theta+d_theta)*DTOR) * glm::sin((phi+d_phi)*DTOR);
+            z = glm::sin((theta+d_theta)*DTOR);
+
+            vert.push_back(x);
+            vert.push_back(y);
+            vert.push_back(z);
+            vert.push_back(r);
+            vert.push_back(g);
+            vert.push_back(b);
+            counter++;
+
+            if (theta > -90 && theta < 90){
+                x = glm::cos(theta*DTOR) * glm::cos((phi+d_phi)*DTOR);
+                y = glm::cos(theta*DTOR) * glm::sin((phi+d_phi)*DTOR);
+                z = glm::sin(theta*DTOR);
+
+                vert.push_back(x);
+                vert.push_back(y);
+                vert.push_back(z);
+                vert.push_back(r);
+                vert.push_back(g);
+                vert.push_back(b);
+                counter++;
+            }
         }
-        vert.push_back(x1);
-        vert.push_back(y1);
-        vert.push_back(z);
-        vert.push_back( 0.2f);
-        vert.push_back(0.5f);
-        vert.push_back(1.0f);
     }
+
 
     unsigned int VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO);
@@ -211,6 +229,7 @@ int main() {
         glm::mat4 model = glm::mat4(1.0f);
         glm::mat4 view = glm::mat4(1.0f);
         glm::mat4 projection = glm::mat4(1.0f);
+
         model = model =
                 glm::rotate(model,  glm::radians(20.0f),
                             glm::vec3(0.5f, 0.0f, 0.0f));
@@ -232,8 +251,7 @@ int main() {
         // render container
         glBindVertexArray(VAO);
 
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glDrawArrays(GL_TRIANGLE_STRIP, 36+1, 2*(numOfAngles+1)*disks+36);
+        glDrawArrays(GL_LINE_STRIP, 0, counter);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved
         // etc.)

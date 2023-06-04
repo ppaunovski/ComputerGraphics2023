@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cmath>
 
 const std::string program_name = ("Transformation basics");
 
@@ -65,111 +66,78 @@ int main() {
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
     float vertices[] = {
-            -0.55f, -0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
-            -0.55f, -0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
-            -0.3f, -0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
+            //DOWN
+            -0.5f, -0.5f, -0.5f,
+            -0.5f, -0.5f, 0.5f,
+            0.5f, -0.5f, -0.5f,
 
-            -0.55f, -0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
-            -0.3f, -0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
-            -0.3f, -0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
+            -0.5f, -0.5f, 0.5f,
+            0.5, -0.5f, -0.5f,
+            0.5f, -0.5f, 0.5f,
+            //DOWN
+            //RIGHT
+            0.5f, -0.5f, -0.5f,
+            0.5f, -0.5f, 0.5f,
+            0.5f, 0.5f, 0.5f,
 
-            -0.3f, -0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
-            -0.3f, -0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
-            -0.3f, 0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
+            0.5f, -0.5f, -0.5f,
+            0.5f, 0.5f, 0.5f,
+            0.5f, 0.5f, -0.5f,
+            //RIGHT
+            //UP
+            0.5f, 0.5f, 0.5f,
+            0.5f, 0.5f, -0.5f,
+            -0.5f, 0.5f, -0.5f,
 
-            -0.3f, -0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
-            -0.3f, 0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
-            -0.3f, 0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
+            -0.5f, 0.5f, -0.5f,
+            0.5f, 0.5f, 0.5f,
+            -0.5f, 0.5f, 0.5f,
+            //UP
+            //FRONT
+            -0.5f, 0.5f, 0.5f,
+            0.5f, 0.5f, 0.5f,
+            -0.5f, -0.5f, 0.5f,
 
-            -0.3f, 0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
-            -0.3f, 0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
-            -0.55f, 0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
+            -0.5f, -0.5f, 0.5f,
+            0.5f, -0.5f, 0.5f,
+            0.5f, 0.5f, 0.5f,
+            //FRONT
+            //LEFT
+            -0.5f, -0.5f, 0.5f,
+            -0.5f, -0.5f, -0.5f,
+            -0.5f, 0.5f, 0.5f,
 
-            -0.55f, 0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
-            -0.3f, 0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
-            -0.55f, 0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
+            -0.5f, -0.5f, -0.5f,
+            -0.5f, 0.5f, 0.5f,
+            -0.5f, 0.5f, -0.5f,
+            //LEFT
+            //BACK
+            -0.5f, -0.5f, -0.5f,
+            0.5f, -0.5f, -0.5f,
+            0.5f, 0.5f, -0.5f,
 
-            -0.55f, 0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
-            -0.3f, 0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
-            -0.55f, -0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
-
-            -0.55f, -0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
-            -0.3f, -0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
-            -0.3f, 0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
-
-            -0.55f, -0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
-            -0.55f, -0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
-            -0.55f, 0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
-
-            -0.55f, -0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
-            -0.55f, 0.45f, 0.0f, 0.2f, 0.1f, 0.5f,
-            -0.55f, 0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
-
-            -0.55f, -0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
-            -0.3f, -0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
-            -0.3f, 0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
-
-            -0.55f, 0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
-            -0.3f, 0.45f, -0.5f, 0.2f, 0.1f, 0.5f,
-            -0.3f, -0.45f, -0.5f, 0.2f, 0.1f, 0.5f
-
+            -0.5f, 0.5f, -0.5f,
+            0.5f, 0.5f, -0.5f,
+            -0.5f, -0.5f, -0.5f
+            //BACK
     };
 
     std::vector<float> vert;
+    float r,g,b;
 
     for (int i=0; i<36; i++){
-        vert.push_back(vertices[6*i]);
-        vert.push_back(vertices[6*i+1]);
-        vert.push_back(vertices[6*i+2]);
-        vert.push_back(vertices[6*i+3]);
-        vert.push_back(vertices[6*i+4]);
-        vert.push_back(vertices[6*i+5]);
+        vert.push_back(vertices[3*i]);
+        vert.push_back(vertices[3*i+1]);
+        vert.push_back(vertices[3*i+2]);
+        r = rand() % 100 / 100.0;
+        g = rand() % 100 / 100.0;
+        b = rand() % 100 / 100.0;
+        vert.push_back(r);
+        vert.push_back(g);
+        vert.push_back(b);
     }
 
-    float numOfAngles = 360;
-    float increment = 2 * glm::pi<float>() / numOfAngles;
-    float x, y, z = 0.0f;
-    float x1, y1, z1 = 0.0f;
-    float radius = 0.5f;
-    float radius_inner = 0.3f;
-    float angle = 0.0f;
-    int disks = 1000;
-    int count = 0;
 
-    for(int j=0; j<disks; j++){
-        z -= 0.0005f;
-        angle = 0.0f;
-        for(int i=0; i<numOfAngles + 1; i++){
-            x1 = radius_inner * glm::cos(angle)+0.3f;
-            y1 = radius_inner * glm::sin(angle);
-
-            x = radius * glm::cos(angle)+0.3f;
-            y = radius * glm::sin(angle);
-
-            vert.push_back(x1);
-            vert.push_back(y1);
-            vert.push_back(z);
-            vert.push_back( 0.2f);
-            vert.push_back(0.5f);
-            vert.push_back(1.0f);
-
-
-            vert.push_back(x);
-            vert.push_back(y);
-            vert.push_back(z);
-            vert.push_back( 0.2f);
-            vert.push_back(0.5f);
-            vert.push_back(1.0f);
-
-            angle += increment;
-        }
-        vert.push_back(x1);
-        vert.push_back(y1);
-        vert.push_back(z);
-        vert.push_back( 0.2f);
-        vert.push_back(0.5f);
-        vert.push_back(1.0f);
-    }
 
     unsigned int VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO);
@@ -212,8 +180,8 @@ int main() {
         glm::mat4 view = glm::mat4(1.0f);
         glm::mat4 projection = glm::mat4(1.0f);
         model = model =
-                glm::rotate(model,  glm::radians(20.0f),
-                            glm::vec3(0.5f, 0.0f, 0.0f));
+                glm::rotate(model,  static_cast<float>(glfwGetTime()),
+                            glm::vec3(0.1f, 0.1f, 0.1f));
         view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
         projection =
                 glm::perspective(glm::radians(45.0f),
@@ -233,7 +201,6 @@ int main() {
         glBindVertexArray(VAO);
 
         glDrawArrays(GL_TRIANGLES, 0, 36);
-        glDrawArrays(GL_TRIANGLE_STRIP, 36+1, 2*(numOfAngles+1)*disks+36);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved
         // etc.)

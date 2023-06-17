@@ -9,7 +9,7 @@
 
 // Defines several possible options for camera movement. Used as abstraction to
 // stay away from window-system specific input methods
-enum Camera_Movement { FORWARD, BACKWARD, LEFT, RIGHT };
+enum Camera_Movement { FORWARD, BACKWARD, LEFT, RIGHT, JUMP, CROUCH, STAND_UP };
 
 // Default camera values
 const float YAW = -90.0f;
@@ -28,6 +28,7 @@ public:
   glm::vec3 Up;
   glm::vec3 Right;
   glm::vec3 WorldUp;
+  glm::vec3 Ground;
   // Euler Angles
   float Yaw;
   float Pitch;
@@ -35,9 +36,18 @@ public:
   float MovementSpeed;
   float MouseSensitivity;
   float Zoom;
+  float CameraHeight;
+  float JumpHeight;
+  float CrouchHeight;
+  bool isJumping;
+  bool isFalling;
+  bool isCrouching;
+  bool isStandingUp;
+  bool crouched;
+
 
   // Constructor with vectors
-  Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f),
+  Camera(glm::vec3 ground = glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f),
          glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW,
          float pitch = PITCH);
   // Constructor with scalar values
@@ -61,8 +71,16 @@ public:
   // input on the vertical wheel-axis
   void ProcessMouseScroll(float yoffset);
 
+  void ContinuousJump(float deltaTime);
+  void ProcessFalling(float deltaTime);
+  void Crouching(float deltaTime);
+  void StandingUp(float deltaTime);
+
 private:
   // Calculates the front vector from the Camera's (updated) Euler Angles
   void updateCameraVectors();
+
+
+
 };
 #endif

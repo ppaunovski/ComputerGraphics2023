@@ -221,6 +221,19 @@ int main() {
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, texture2);
 
+    if (camera.isJumping){
+        camera.ContinuousJump(deltaTime);
+    }
+    if (camera.isFalling){
+        camera.ProcessFalling(deltaTime);
+    }
+    if (camera.isCrouching){
+        camera.Crouching(deltaTime);
+    }
+    if (camera.isStandingUp){
+        camera.StandingUp(deltaTime);
+    }
+
     // activate shader
     ourShader.use();
 
@@ -283,6 +296,12 @@ void processInput(GLFWwindow *window) {
     camera.ProcessKeyboard(LEFT, deltaTime);
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
     camera.ProcessKeyboard(RIGHT, deltaTime);
+  if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+    camera.ProcessKeyboard(JUMP, deltaTime);
+  if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+    camera.ProcessKeyboard(CROUCH, deltaTime);
+  if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_RELEASE)
+    camera.ProcessKeyboard(STAND_UP, deltaTime);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback

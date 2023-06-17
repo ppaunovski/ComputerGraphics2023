@@ -1,9 +1,19 @@
 #include <Camera.hpp>
+#include <iostream>
 
-Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
+Camera::Camera(glm::vec3 ground, glm::vec3 position, glm::vec3 up, float yaw, float pitch)
     : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED),
       MouseSensitivity(SENSITIVITY), Zoom(ZOOM) {
-  Position = position;
+    CameraHeight = 0.1f;
+    JumpHeight = 0.25f;
+    CrouchHeight = -0.15f;
+    isJumping = false;
+    isFalling = false;
+    isCrouching = false;
+    isStandingUp = false;
+    crouched = false;
+    Ground = ground;
+  Position = ground;
   WorldUp = up;
   Yaw = yaw;
   Pitch = pitch;
@@ -14,6 +24,7 @@ Camera::Camera(float posX, float posY, float posZ, float upX, float upY,
                float upZ, float yaw, float pitch)
     : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED),
       MouseSensitivity(SENSITIVITY), Zoom(ZOOM) {
+    CameraHeight = 1.0f;
   Position = glm::vec3(posX, posY, posZ);
   WorldUp = glm::vec3(upX, upY, upZ);
   Yaw = yaw;
@@ -32,13 +43,107 @@ glm::mat4 Camera::GetViewMatrix() {
 void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime) {
   float velocity = MovementSpeed * deltaTime;
   if (direction == FORWARD)
-    Position += Front * velocity;
+      Position += glm::vec3(Front.x, 0.0f, Front.z) * velocity;
+
+
   if (direction == BACKWARD)
-    Position -= Front * velocity;
+      Position -= glm::vec3(Front.x, 0.0f, Front.z) * velocity;
+
+
   if (direction == LEFT)
-    Position -= Right * velocity;
+      Position -= glm::vec3(Right.x, 0.0f, Right.z) * velocity;
+
   if (direction == RIGHT)
-    Position += Right * velocity;
+      Position += glm::vec3(Right.x, 0.0f, Right.z) * velocity;
+
+  if (direction == JUMP){
+      if (!isJumping && !isFalling){
+          isJumping = true;
+      }
+      //Position += glm::vec3(0.0f, 1.0f, 0.0f) * velocity;
+  }
+
+  if (direction == CROUCH){
+      if (!isCrouching && !isStandingUp){
+          isCrouching = true;
+      }
+  }
+
+  if (direction == STAND_UP){
+      if (crouched && !isStandingUp){
+          isStandingUp = true;
+      }
+  }
+
+
+}
+
+void Camera:: ContinuousJump(float deltaTime){
+    float velocity = MovementSpeed * deltaTime;
+    if (isJumping){
+        std::cout<<"JUMPINGGGGGGGGGGG"<<std::endl;
+        if(Position.y + 0.5f * velocity <= JumpHeight){
+            std::cout<<"INC"<<std::endl;
+            Position += glm::vec3(0.0f, 0.5f, 0.0f) * velocity;
+        } else{
+            std::cout<<"ELSE"<<std::endl;
+            isJumping = false;
+            isFalling = true;
+        }
+    }
+}
+
+void Camera:: ProcessFalling(float deltaTime){
+    float velocity = MovementSpeed * deltaTime;
+    if(isFalling){
+        std::cout<<"FALLING"<<std::endl;
+        if(Position.y - 0.5f * velocity >= 0.0f) {
+            std::cout << "DEC" << std::endl;
+            Position -= glm::vec3(0.0f, 0.5f, 0.0f)*velocity;
+            std::cout << Position.y << std::endl;
+        }
+        else{
+            std::cout<<"FINISHED"<<std::endl;
+            isFalling = false;
+            isJumping = false;
+            Position = glm::vec3(Position.x, 0.0f, Position.z);
+        }
+    }
+}
+
+void Camera:: Crouching(float deltaTime){
+    float velocity = MovementSpeed * deltaTime;
+    if (isCrouching){
+        std::cout<<"Crouching"<<std::endl;
+        if(Position.y - 0.5f * velocity >= CrouchHeight){
+            std::cout<<"DEC"<<std::endl;
+            Position -= glm::vec3(0.0f, 0.5f, 0.0f) * velocity;
+        } else{
+            std::cout<<"ELSE"<<std::endl;
+            isCrouching = false;
+            crouched = true;
+            std::cout<<"CROUCHED"<<std::endl;
+        }
+    }
+}
+
+void Camera:: StandingUp(float deltaTime){
+    float velocity = MovementSpeed * deltaTime;
+    if(isStandingUp){
+        std::cout<<"Standing up"<<std::endl;
+        if(Position.y + 0.5f * velocity <= 0.0f) {
+            std::cout << "INC" << std::endl;
+            Position += glm::vec3(0.0f, 0.5f, 0.0f) * velocity;
+            std::cout << Position.y << std::endl;
+        }
+        else{
+            std::cout<<"FINISHED"<<std::endl;
+            isCrouching = false;
+            isStandingUp = false;
+            crouched = false;
+            Position = glm::vec3(Position.x, 0.0f, Position.z);
+        }
+    }
 }
 
 // Processes input received from a mouse input system. Expects the offset

@@ -32,7 +32,7 @@ static float deltaTime = 0.0f;
 static float lastFrame = 0.0f;
 
 // lighting
-static glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+static glm::vec3 lightPos(1.0f, 1.0f, 1.0f);
 
 int main() {
     // glfw: initialize and configure

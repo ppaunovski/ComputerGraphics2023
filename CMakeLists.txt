@@ -58,7 +58,16 @@ add_definitions(-DGLFW_INCLUDE_NONE
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} ${PROJECT_HEADERS}
                                ${PROJECT_SHADERS} ${PROJECT_TEXTURES} ${PROJECT_CONFIGS}
-                               ${VENDORS_SOURCES})
+                               ${VENDORS_SOURCES}
+        src/IndexBuffer.cpp
+        include/IndexBuffer.hpp
+        src/VertexArray.cpp
+        include/VertexArray.hpp
+        src/VertexBuffer.cpp
+        include/VertexBuffer.hpp
+        include/VertexBufferLayout.hpp
+        src/Cube.cpp
+        include/Cube.hpp)
 target_link_libraries(${PROJECT_NAME}
 		      glfw
                       ${GLFW_LIBRARIES} ${GLAD_LIBRARIES}

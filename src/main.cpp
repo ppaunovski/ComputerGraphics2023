@@ -8,6 +8,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "VertexArray.hpp"
+#include "Cube.hpp"
 
 const std::string program_name = ("Camera");
 
@@ -80,9 +82,16 @@ int main() {
 
   Shader ourShader(shader_location + used_shaders + std::string(".vert"),
                    shader_location + used_shaders + std::string(".frag"));
+  Shader crosshairShader(shader_location + used_shaders + std::string(".vert"),
+                   shader_location + used_shaders + std::string(".frag"));
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
+  float ground[] = {
+          -1.0f, 0.0f, 1.0f,
+          1.0f, 0.0f, 1.0f,
+          1.0f, 0.0f, -1.0f,
+  };
   float vertices[] = {
       -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.5f,  -0.5f, -0.5f, 1.0f, 0.0f,
       0.5f,  0.5f,  -0.5f, 1.0f, 1.0f, 0.5f,  0.5f,  -0.5f, 1.0f, 1.0f,
@@ -116,22 +125,66 @@ int main() {
       glm::vec3(1.3f, -2.0f, -2.5f),  glm::vec3(1.5f, 2.0f, -2.5f),
       glm::vec3(1.5f, 0.2f, -1.5f),   glm::vec3(-1.3f, 1.0f, -1.5f)};
 
-  unsigned int VBO, VAO;
-  glGenVertexArrays(1, &VAO);
-  glGenBuffers(1, &VBO);
+  float crosshair[] = {
+          0.5f, 0.0f, 0.0f,
+          -0.5f, 0.0f, 0.0f,
+          0.00f, 0.5f, 0.0f,
+  };
 
-  glBindVertexArray(VAO);
+  Cube cube1 = Cube();
 
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+  for(int i = 0; i<30; i++){
+      std::cout<<cube1.vertices[i]<<std::endl;
+  }
+    std::cout<<sizeof(cube1.vertices)<<std::endl;
+    std::cout<<sizeof(vertices)<<std::endl;
+  VertexArray va;
+  VertexArray va1;
+  VertexBuffer vb(cube1.vertices, cube1.size());
+    VertexBuffer vb1(crosshair, sizeof(crosshair));
+  //VertexBuffer vb(vertices, sizeof(vertices));
+  VertexBufferLayout layout;
+  VertexBufferLayout layout1;
+  layout.PushFloat(3);
+  layout.PushFloat(2);
+  layout1.PushFloat(3);
+  va.AddBuffer(vb, layout);
+  va1.AddBuffer(vb1, layout1);
+//  unsigned int VBO, VAO;
+//  glGenVertexArrays(1, &VAO);
+//  glGenBuffers(1, &VBO);
+//
+//  glBindVertexArray(VAO);
+//
+//  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+//  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+//
+//  // position attribute
+//  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);
+//  glEnableVertexAttribArray(0);
+//  // texture coord attribute
+//  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float),
+//                        reinterpret_cast<void *>(3 * sizeof(float)));
+//  glEnableVertexAttribArray(1);
+//
+//    unsigned int VBO1, VAO1;
+//    glGenVertexArrays(1, &VAO1);
+//    glGenBuffers(1, &VBO1);
+//
+//    glBindVertexArray(VAO1);
+//
+//    glBindBuffer(GL_ARRAY_BUFFER, VBO1);
+//    glBufferData(GL_ARRAY_BUFFER, sizeof(ground), ground, GL_STATIC_DRAW);
+//
+//    // position attribute
+//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+//    glEnableVertexAttribArray(0);
+//    // texture coord attribute
+////    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
+////                          reinterpret_cast<void *>(3 * sizeof(float)));
+//    //glEnableVertexAttribArray(1);
 
-  // position attribute
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);
-  glEnableVertexAttribArray(0);
-  // texture coord attribute
-  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float),
-                        reinterpret_cast<void *>(3 * sizeof(float)));
-  glEnableVertexAttribArray(1);
+
 
   // load and create a texture
   // -------------------------
@@ -248,20 +301,41 @@ int main() {
     ourShader.setMat4("view", view);
 
     // render boxes
-    glBindVertexArray(VAO);
-    for (unsigned int i = 0; i < 10; i++) {
+    //glBindVertexArray(VAO);
+    va.Bind();
+    for (unsigned int i = 0; i < cube1.positions.size(); i++) {
       // calculate the model matrix for each object and pass it to shader before
       // drawing
       glm::mat4 model = glm::mat4(
           1.0f); // make sure to initialize matrix to identity matrix first
-      model = glm::translate(model, cubePositions[i]);
-      float angle = 20.0f * i;
+      //model = glm::translate(model, cube1.position);
+      model = glm::translate(model, cube1.positions[i]);
+      //float angle = 20.0f * 1;
+      float angle = 0;
       model =
           glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
       ourShader.setMat4("model", model);
 
       glDrawArrays(GL_TRIANGLES, 0, 36);
     }
+      crosshairShader.use();
+
+      glm::mat4 projection_cr = glm::perspective(
+              glm::radians(camera.Zoom), SCR_WIDTH * 1.0f / SCR_HEIGHT, 0.1f, 100.0f);
+      crosshairShader.setMat4("projection", projection_cr);
+
+      // camera/view transformation
+      glm::mat4 view_cr = camera.GetViewMatrix();
+      crosshairShader.setMat4("view", view_cr);
+
+      glm::mat4 model = glm::mat4(
+              1.0f); // make sure to initialize matrix to identity matrix first
+      model = glm::translate(model, camera.Position*camera.Up*camera.Right*camera.Front);
+      model =
+              glm::rotate(model, 20.0f, glm::vec3(1.0f, 0.3f, 0.5f));
+      crosshairShader.setMat4("model", model);
+    va1.Bind();
+    glDrawArrays(GL_TRIANGLES, 0, 3);
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved
     // etc.)
@@ -272,8 +346,8 @@ int main() {
 
   // optional: de-allocate all resources once they've outlived their purpose:
   // ------------------------------------------------------------------------
-  glDeleteVertexArrays(1, &VAO);
-  glDeleteBuffers(1, &VBO);
+  //glDeleteVertexArrays(1, &VAO);
+  //glDeleteBuffers(1, &VBO);
 
   // glfw: terminate, clearing all previously allocated GLFW resources.
   // ------------------------------------------------------------------

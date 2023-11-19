@@ -58,7 +58,19 @@ add_definitions(-DGLFW_INCLUDE_NONE
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} ${PROJECT_HEADERS}
                                ${PROJECT_SHADERS} ${PROJECT_TEXTURES} ${PROJECT_CONFIGS}
-                               ${VENDORS_SOURCES})
+                               ${VENDORS_SOURCES}
+        src/Cube.cpp
+        include/Cube.hpp
+        src/CubeState.cpp
+        include/CubeState.hpp
+        src/Translating.cpp
+        include/Translating.hpp
+        src/Still.cpp
+        include/Still.hpp
+        src/Rotating.cpp
+        include/Rotating.hpp
+        src/Rubik.cpp
+        include/Rubik.hpp)
 target_link_libraries(${PROJECT_NAME}
 		      glfw
                       ${GLFW_LIBRARIES} ${GLAD_LIBRARIES}

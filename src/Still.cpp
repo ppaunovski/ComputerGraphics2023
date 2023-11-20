@@ -20,3 +20,33 @@ void Still::stop() {
 }
 
 Still::Still(Cube *cube) : cube(cube) {}
+
+bool Still::rotateXLEFT(float d) {
+    this->cube->actualSate = this->cube->is_Rotating;
+    return false;
+}
+
+bool Still::rotateXRIGHT(float d) {
+    this->cube->actualSate = this->cube->is_Rotating;
+    return false;
+}
+
+bool Still::rotateYTOP(float d) {
+    this->cube->actualSate = this->cube->is_Rotating;
+    return false;
+}
+
+bool Still::rotateYDOWN(float d) {
+    this->cube->actualSate = this->cube->is_Rotating;
+    return false;
+}
+
+bool Still::rotateZFRONT(float d) {
+    this->cube->actualSate = this->cube->is_Rotating;
+    return false;
+}
+
+bool Still::rotateZBACK(float d) {
+    this->cube->actualSate = this->cube->is_Rotating;
+    return false;
+}

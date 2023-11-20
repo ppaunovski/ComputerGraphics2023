@@ -9,17 +9,28 @@
 #include <vector>
 #include "Cube.hpp"
 
+enum SIDE{
+    T,
+    D,
+    L,
+    R,
+    F,
+    B
+};
+
 class Rubik {
 
 public:
-    std::vector<Cube> cubes;
+    std::vector<Cube*> cubes;
     bool isRotating;
+    bool isConcreteRotating[6];
 
-    explicit Rubik(const std::vector<Cube> &cubes);
+    explicit Rubik(const std::vector<Cube*> &cubes);
 
     Rubik();
 
-    void startRotation(float deltaTime);
+
+    void startRotation(float deltaTime, SIDE side);
 };
 
 

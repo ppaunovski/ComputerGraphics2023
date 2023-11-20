@@ -88,137 +88,100 @@ int main() {
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
-  float vertices[] = {
-      -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
-      0.5f,  -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
-      0.5f,  0.5f,  -0.5f, 1.0f, 1.0f, 1.0f,
-      0.5f,  0.5f,  -0.5f, 1.0f, 1.0f, 1.0f,
-      -0.5f, 0.5f,  -0.5f, 1.0f, 1.0f, 1.0f,
-      -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+  // raboti - bela kocka
+//  float vertices[] = {
+//      -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+//      0.5f,  -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+//      0.5f,  0.5f,  -0.5f, 1.0f, 1.0f, 1.0f,
+//      0.5f,  0.5f,  -0.5f, 1.0f, 1.0f, 1.0f,
+//      -0.5f, 0.5f,  -0.5f, 1.0f, 1.0f, 1.0f,
+//      -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+//
+//      -0.5f, -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
+//      0.5f,  -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
+//      0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+//      0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+//      -0.5f, 0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+//      -0.5f, -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
+//
+//      -0.5f, 0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+//      -0.5f, 0.5f,  -0.5f, 1.0f, 1.0f, 1.0f,
+//      -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+//      -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+//      -0.5f, -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
+//      -0.5f, 0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+//
+//      0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+//      0.5f,  0.5f,  -0.5f, 1.0f, 1.0f, 1.0f,
+//      0.5f,  -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+//      0.5f,  -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+//      0.5f,  -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
+//      0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+//
+//      -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+//      0.5f,  -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+//      0.5f,  -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
+//      0.5f,  -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
+//      -0.5f, -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
+//      -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+//
+//      -0.5f, 0.5f,  -0.5f, 1.0f, 1.0f, 1.0f,
+//      0.5f,  0.5f,  -0.5f, 1.0f, 1.0f, 1.0f,
+//      0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+//      0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+//      -0.5f, 0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+//      -0.5f, 0.5f,  -0.5f, 01.0f, 1.0f, 1.0f
+//  };
 
-      -0.5f, -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
-      0.5f,  -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
-      0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
-      0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
-      -0.5f, 0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
-      -0.5f, -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
+    float vertices[] = {
+            // Vertices for the front face
+            -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f,   // Bottom left (Green)
+            0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f,    // Bottom right (Green)
+            0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,     // Top right (Green)
+            0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,     // Top right (Green)
+            -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,    // Top left (Green)
+            -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f,   // Bottom left (Green)
 
-      -0.5f, 0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
-      -0.5f, 0.5f,  -0.5f, 1.0f, 1.0f, 1.0f,
-      -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
-      -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
-      -0.5f, -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
-      -0.5f, 0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+            // Vertices for the back face
+            -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,    // Bottom left (Blue)
+            0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,     // Bottom right (Blue)
+            0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,      // Top right (Blue)
+            0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,      // Top right (Blue)
+            -0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,     // Top left (Blue)
+            -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,    // Bottom left (Blue)
 
-      0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
-      0.5f,  0.5f,  -0.5f, 1.0f, 1.0f, 1.0f,
-      0.5f,  -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
-      0.5f,  -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
-      0.5f,  -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
-      0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
+            // Vertices for the right face
+            0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,    // Bottom front (Red)
+            0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,     // Bottom back (Red)
+            0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,      // Top back (Red)
+            0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,      // Top back (Red)
+            0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,     // Top front (Red)
+            0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,    // Bottom front (Red)
 
-      -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 1.0f,
-      0.5f,  -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
-      0.5f,  -0.5f, 0.5f,  1.0f, 0.0f,  1.0f,
-      0.5f,  -0.5f, 0.5f,  1.0f, 0.0f, 1.0f,
-      -0.5f, -0.5f, 0.5f,  0.0f, 0.0f,  1.0f,
-      -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 1.0f,
+            // Vertices for the left face
+            -0.5f, -0.5f, -0.5f, 1.0f, 0.5f, 0.0f,   // Bottom front (Orange)
+            -0.5f, -0.5f, 0.5f, 1.0f, 0.5f, 0.0f,    // Bottom back (Orange)
+            -0.5f, 0.5f, 0.5f, 1.0f, 0.5f, 0.0f,     // Top back (Orange)
+            -0.5f, 0.5f, 0.5f, 1.0f, 0.5f, 0.0f,     // Top back (Orange)
+            -0.5f, 0.5f, -0.5f, 1.0f, 0.5f, 0.0f,    // Top front (Orange)
+            -0.5f, -0.5f, -0.5f, 1.0f, 0.5f, 0.0f,   // Bottom front (Orange)
 
-      -0.5f, 0.5f,  -0.5f, 0.0f, 1.0f,  1.0f,
-      0.5f,  0.5f,  -0.5f, 1.0f, 1.0f, 1.0f,
-      0.5f,  0.5f,  0.5f,  1.0f, 0.0f,  1.0f,
-      0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 1.0f,
-      -0.5f, 0.5f,  0.5f,  0.0f, 0.0f, 1.0f,
-      -0.5f, 0.5f,  -0.5f, 0.0f, 1.0f,  1.0f
-  };
+            // Vertices for the top face
+            -0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f,    // Front left (White)
+            0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f,     // Front right (White)
+            0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f,      // Back right (White)
+            0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f,      // Back right (White)
+            -0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f,     // Back left (White)
+            -0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f,    // Front left (White)
 
-//    float vertices[] = {
-//            -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.5f,
-//            0.5f,  0.5f,  -0.5f, 1.0f, 1.0f, 0.5f,
-//            -0.5f, 0.5f,  -0.5f, 0.0f, 1.0f, -0.5f,
-//
-//            -0.5f, -0.5f, 0.5f,  0.0f, 0.0f, 0.5f,
-//            0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 0.5f,
-//            -0.5f, 0.5f,  0.5f,  0.0f, 1.0f, -0.5f,
-//
-//            -0.5f, 0.5f,  0.5f,  1.0f, 0.0f, -0.5f,
-//            -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, -0.5f,
-//            -0.5f, -0.5f, 0.5f,  0.0f, 0.0f, -0.5f,
-//
-//            0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.5f,
-//            0.5f,  -0.5f, -0.5f, 0.0f, 1.0f, 0.5f,
-//            0.5f,  -0.5f, 0.5f,  0.0f, 0.0f, 0.5f,
-//
-//            -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.5f,
-//            0.5f,  -0.5f, 0.5f,  1.0f, 0.0f, 0.5f,
-//            -0.5f, -0.5f, 0.5f,  0.0f, 0.0f, -0.5f,
-//
-//            -0.5f, 0.5f,  -0.5f, 0.0f, 1.0f, 0.5f,
-//            0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.5f,
-//            -0.5f, 0.5f,  0.5f,  0.0f, 0.0f, -0.5f};
-
-
-//    float vertices[] = {
-//            // Vertices for the front face
-//            -0.5f, -0.5f, 0.5f,   // Bottom left
-//            1.0f, 0.0f, 0.0f,     // Red
-//            0.5f, -0.5f, 0.5f,    // Bottom right
-//            1.0f, 0.0f, 0.0f,     // Red
-//            0.5f, 0.5f, 0.5f,     // Top right
-//            1.0f, 0.0f, 0.0f,     // Red
-//            -0.5f, 0.5f, 0.5f,    // Top left
-//            1.0f, 0.0f, 0.0f,     // Red
-//
-//            // Vertices for the back face
-//            -0.5f, -0.5f, -0.5f,  // Bottom left
-//            0.0f, 1.0f, 0.0f,     // Green
-//            0.5f, -0.5f, -0.5f,   // Bottom right
-//            0.0f, 1.0f, 0.0f,     // Green
-//            0.5f, 0.5f, -0.5f,    // Top right
-//            0.0f, 1.0f, 0.0f,     // Green
-//            -0.5f, 0.5f, -0.5f,   // Top left
-//            0.0f, 1.0f, 0.0f,     // Green
-//
-//            // Vertices for the right face
-//            0.5f, -0.5f, 0.5f,    // Bottom front
-//            0.0f, 0.0f, 1.0f,     // Blue
-//            0.5f, -0.5f, -0.5f,   // Bottom back
-//            0.0f, 0.0f, 1.0f,     // Blue
-//            0.5f, 0.5f, -0.5f,    // Top back
-//            0.0f, 0.0f, 1.0f,     // Blue
-//            0.5f, 0.5f, 0.5f,     // Top front
-//            0.0f, 0.0f, 1.0f,     // Blue
-//
-//            // Vertices for the left face
-//            -0.5f, -0.5f, 0.5f,   // Bottom front
-//            1.0f, 1.0f, 0.0f,     // Yellow
-//            -0.5f, -0.5f, -0.5f,  // Bottom back
-//            1.0f, 1.0f, 0.0f,     // Yellow
-//            -0.5f, 0.5f, -0.5f,   // Top back
-//            1.0f, 1.0f, 0.0f,     // Yellow
-//            -0.5f, 0.5f, 0.5f,    // Top front
-//            1.0f, 1.0f, 0.0f,     // Yellow
-//
-//            // Vertices for the top face
-//            -0.5f, 0.5f, 0.5f,    // Front left
-//            0.0f, 1.0f, 1.0f,     // Cyan
-//            0.5f, 0.5f, 0.5f,     // Front right
-//            0.0f, 1.0f, 1.0f,     // Cyan
-//            0.5f, 0.5f, -0.5f,    // Back right
-//            0.0f, 1.0f, 1.0f,     // Cyan
-//            -0.5f, 0.5f, -0.5f,   // Back left
-//            0.0f, 1.0f, 1.0f,     // Cyan
-//
-//            // Vertices for the bottom face
-//            -0.5f, -0.5f, 0.5f,   // Front left
-//            1.0f, 0.5f, 0.0f,     // Orange
-//            0.5f, -0.5f, 0.5f,    // Front right
-//            1.0f, 0.5f, 0.0f,     // Orange
-//            0.5f, -0.5f, -0.5f,   // Back right
-//            1.0f, 0.5f, 0.0f,     // Orange
-//            -0.5f, -0.5f, -0.5f,  // Back left
-//            1.0f, 0.5f, 0.0f      // Orange
-//    };
+            // Vertices for the bottom face
+            -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 0.0f,   // Front left (Yellow)
+            0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 0.0f,    // Front right (Yellow)
+            0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 0.0f,     // Back right (Yellow)
+            0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 0.0f,     // Back right (Yellow)
+            -0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 0.0f,    // Back left (Yellow)
+            -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 0.0f    // Front left (Yellow)
+    };
 
   // world space positions of our cubes
   glm::vec3 cubePositions[] = {
@@ -352,19 +315,24 @@ int main() {
     // render boxes
     glBindVertexArray(VAO);
     //single cube
-    glm::mat4 model = cube.model;
-    model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.0f));
-    ourShader.setMat4("model", model);
-      glDrawArrays(GL_TRIANGLES, 0, 36);
+//    glm::mat4 model = cube.model;
+//    model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.0f));
+//    ourShader.setMat4("model", model);
+//      glDrawArrays(GL_TRIANGLES, 0, 36);
 
 //rubik
-//      for(Cube c : rubik.cubes){
-//          glm::mat4 model = c.model;
-//          model = glm::translate(model, c.position);
-//          model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
-//          ourShader.setMat4("model", model);
-//          glDrawArrays(GL_TRIANGLES, 0, 36);
-//      }
+//      glm::mat4 model = rubik.cubes[0]->model;
+//      model = glm::translate(model, rubik.cubes[0]->position);
+//      model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
+//      ourShader.setMat4("model", model);
+//      glDrawArrays(GL_TRIANGLES, 0, 36);
+      for(auto c : rubik.cubes){
+          glm::mat4 model = c->model;
+          model = glm::translate(model, c->position);
+          //model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
+          ourShader.setMat4("model", model);
+          glDrawArrays(GL_TRIANGLES, 0, 36);
+      }
 
 //    for (unsigned int i = 1; i < 2; i++) {
 //      // calculate the model matrix for each object and pass it to shader before
@@ -413,11 +381,19 @@ void processInput(GLFWwindow *window) {
     camera.ProcessKeyboard(LEFT, deltaTime);
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
     camera.ProcessKeyboard(RIGHT, deltaTime);
-  if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS || rubik.isRotating){
-      rubik.startRotation(deltaTime);
+  if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS || rubik.isConcreteRotating[F])
+      rubik.startRotation(deltaTime, (SIDE)F);
+    if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS || rubik.isConcreteRotating[B])
+        rubik.startRotation(deltaTime, (SIDE)B);
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS || rubik.isConcreteRotating[R])
+        rubik.startRotation(deltaTime, (SIDE)R);
+    if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS || rubik.isConcreteRotating[L])
+        rubik.startRotation(deltaTime, (SIDE)L);
+    if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS || rubik.isConcreteRotating[T])
+        rubik.startRotation(deltaTime, (SIDE)T);
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || rubik.isConcreteRotating[D])
+        rubik.startRotation(deltaTime, (SIDE)D);
 
-      //cube.rotate(deltaTime);
-  }
 
 }
 

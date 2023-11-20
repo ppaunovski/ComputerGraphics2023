@@ -17,6 +17,12 @@ public:
     explicit Still(Cube *cube);
 
     bool rotate(float d) override;
+    bool rotateXLEFT(float d) override;
+    bool rotateXRIGHT(float d) override;
+    bool rotateYTOP(float d) override;
+    bool rotateYDOWN(float d) override;
+    bool rotateZFRONT(float d) override;
+    bool rotateZBACK(float d) override;
 
     void translate() override;
 

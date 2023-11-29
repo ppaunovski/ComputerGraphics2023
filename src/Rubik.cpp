@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <iostream>
 #include "Rubik.hpp"
 
 Rubik::Rubik(const std::vector<Cube*> &cubes) : cubes(cubes) {
@@ -16,7 +17,7 @@ Rubik::Rubik() {
     }
     isRotating = false;
     glm::mat4 difMat = glm::mat4(1.0f);
-    glm::vec3 pos[27] = {
+    glm::vec3 pos[26] = {
             //TOP
             glm::vec3(-1.0f, 1.0f, -1.0f), glm::vec3(0.0f, 1.0f, -1.0f), glm::vec3(1.0f, 1.0f, -1.0f),
             glm::vec3(-1.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 0.0f),
@@ -24,7 +25,9 @@ Rubik::Rubik() {
 
             //MID
             glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(1.0f, 0.0f, -1.0f),
-            glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),
+            glm::vec3(-1.0f, 0.0f, 0.0f),
+            //glm::vec3(0.0f, 0.0f, 0.0f), // THIS ONE IS USELESS
+            glm::vec3(1.0f, 0.0f, 0.0f),
             glm::vec3(-1.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 1.0f),
 
             //BOT
@@ -32,10 +35,14 @@ Rubik::Rubik() {
             glm::vec3(-1.0f, -1.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(1.0f, -1.0f, 0.0f),
             glm::vec3(-1.0f, -1.0f, 1.0f), glm::vec3(0.0f, -1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f),
     };
-    for(int i=0; i<27; i++){
-        Cube *cube = new Cube(difMat, pos[i], i);
+    for(int i=0; i<26; i++){
+        Cube *cube = new Cube(new glm::mat4 (1.0f), new glm::vec3(pos[i]), i);
         cubes.push_back(cube);
     }
+    for(auto c : cubes){
+        std::cout << "Cube pos: " << c->pos << " position coord: " << c->position->x << " " << c->position->y << " " << c->position->z << std::endl;
+    }
+    std::cout<<"-------------------------------------------------"<<std::endl;
 }
 
 void Rubik::startRotation(float deltaTime, SIDE side) {
@@ -83,6 +90,15 @@ void Rubik::startRotation(float deltaTime, SIDE side) {
     }
 
     isConcreteRotating[side] = isRotating;
+
+    if(!isConcreteRotating[side]){
+        int count = 0;
+        for(auto c : cubes){
+            std::cout << count << ". Cube pos: " << c->pos << " position coord: " << c->position->x << " " << c->position->y << " " << c->position->z << std::endl;
+            count++;
+        }
+        std::cout<<"-------------------------------------------------"<<std::endl;
+    }
 
 }
 

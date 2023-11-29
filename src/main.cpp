@@ -191,8 +191,8 @@ int main() {
       glm::vec3(1.3f, -2.0f, -2.5f),  glm::vec3(1.5f, 2.0f, -2.5f),
       glm::vec3(1.5f, 0.2f, -1.5f),   glm::vec3(-1.3f, 1.0f, -1.5f)};
 
-  cube.position = cubePositions[0];
-  cube.model = glm::mat4(1.0f);
+  cube.position = &cubePositions[0];
+  cube.model = new glm::mat4(1.0f);
 
   unsigned int VBO, VAO;
 
@@ -327,8 +327,8 @@ int main() {
 //      ourShader.setMat4("model", model);
 //      glDrawArrays(GL_TRIANGLES, 0, 36);
       for(auto c : rubik.cubes){
-          glm::mat4 model = c->model;
-          model = glm::translate(model, c->position);
+          glm::mat4 model = *c->model;
+          model = glm::translate(model, *c->position);
           //model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
           ourShader.setMat4("model", model);
           glDrawArrays(GL_TRIANGLES, 0, 36);

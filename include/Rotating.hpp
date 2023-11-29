@@ -6,7 +6,7 @@
 #define OPENGLPRJ_ROTATING_HPP
 
 
-#include <unordered_map>
+#include <map>
 #include "CubeState.hpp"
 #include "Cube.hpp"
 
@@ -17,12 +17,12 @@ public:
     float goal;
     float increment;
     bool isRotating;
-    std::unordered_map<int, int> rot_left;
-    std::unordered_map<int, int> rot_right;
-    std::unordered_map<int, int> rot_top;
-    std::unordered_map<int, int> rot_down;
-    std::unordered_map<int, int> rot_front;
-    std::unordered_map<int, int> rot_back;
+    std::map<int, int> rot_left;
+    std::map<int, int> rot_right;
+    std::map<int, int> rot_top;
+    std::map<int, int> rot_down;
+    std::map<int, int> rot_front;
+    std::map<int, int> rot_back;
 
     explicit Rotating(Cube *cube);
 

@@ -6,7 +6,7 @@
 
 Vertices::Vertices(){
     float vertices[] = {
-            // Vertices for the front face
+            // Vertices for the back face
             -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f,   // Bottom left (Green)
             0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f,    // Bottom right (Green)
             0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,     // Top right (Green)
@@ -14,7 +14,7 @@ Vertices::Vertices(){
             -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,    // Top left (Green)
             -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f,   // Bottom left (Green)
 
-            // Vertices for the back face
+            // Vertices for the front face
             -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,    // Bottom left (Blue)
             0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,     // Bottom right (Blue)
             0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,      // Top right (Blue)
@@ -23,20 +23,20 @@ Vertices::Vertices(){
             -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,    // Bottom left (Blue)
 
             // Vertices for the right face
-            0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,    // Bottom front (Red)
-            0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,     // Bottom back (Red)
-            0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,      // Top back (Red)
-            0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,      // Top back (Red)
-            0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,     // Top front (Red)
-            0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,    // Bottom front (Red)
+            0.5f, -0.5f, -0.5f, 1.0f, 0.5f, 0.0f,    // Bottom front (Red)
+            0.5f, -0.5f, 0.5f, 1.0f, 0.5f, 0.0f,     // Bottom back (Red)
+            0.5f, 0.5f, 0.5f, 1.0f, 0.5f, 0.0f,      // Top back (Red)
+            0.5f, 0.5f, 0.5f, 1.0f, 0.5f, 0.0f,      // Top back (Red)
+            0.5f, 0.5f, -0.5f, 1.0f, 0.5f, 0.0f,     // Top front (Red)
+            0.5f, -0.5f, -0.5f, 1.0f, 0.5f, 0.0f,    // Bottom front (Red)
 
             // Vertices for the left face
-            -0.5f, -0.5f, -0.5f, 1.0f, 0.5f, 0.0f,   // Bottom front (Orange)
-            -0.5f, -0.5f, 0.5f, 1.0f, 0.5f, 0.0f,    // Bottom back (Orange)
-            -0.5f, 0.5f, 0.5f, 1.0f, 0.5f, 0.0f,     // Top back (Orange)
-            -0.5f, 0.5f, 0.5f, 1.0f, 0.5f, 0.0f,     // Top back (Orange)
-            -0.5f, 0.5f, -0.5f, 1.0f, 0.5f, 0.0f,    // Top front (Orange)
-            -0.5f, -0.5f, -0.5f, 1.0f, 0.5f, 0.0f,   // Bottom front (Orange)
+            -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,   // Bottom front (Orange)
+            -0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,    // Bottom back (Orange)
+            -0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,     // Top back (Orange)
+            -0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,     // Top back (Orange)
+            -0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,    // Top front (Orange)
+            -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,   // Bottom front (Orange)
 
             // Vertices for the top face
             -0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f,    // Front left (White)
@@ -58,22 +58,22 @@ Vertices::Vertices(){
         this->vertices[i] = vertices[i];
     }
 
+    setOldColors();
+
+    hasChanged = false;
+
 }
 
-void Vertices::rotateX() {
-    std::cout<<"***********************************************************************************************************************"<<std::endl;
-    float backColor[3] = { vertices[3], vertices[4], vertices[5] };
-    float frontColor[3] = { vertices[39], vertices[40], vertices[41] };
-    float topColor[3] = { vertices[147], vertices[148], vertices[149] };
-    float downColor[3] = { vertices[183], vertices[184], vertices[185] };
-    float leftColor[3] = { vertices[111], vertices[112], vertices[113] };
-    float rightColor[3] = { vertices[75], vertices[76], vertices[77] };
-    std::cout<<"BACK: " << backColor[0] << " " << backColor[1] << " " << backColor[2] << std::endl;
-    std::cout<<"FRONT: " << frontColor[0] << " " << frontColor[1] << " " << frontColor[2] << std::endl;
-    std::cout<<"Right: " << rightColor[0] << " " << rightColor[1] << " " << rightColor[2] << std::endl;
-    std::cout<<"Left: " << leftColor[0] << " " << leftColor[1] << " " << leftColor[2] << std::endl;
-    std::cout<<"TOP: " << topColor[0] << " " << topColor[1] << " " << topColor[2] << std::endl;
-    std::cout<<"DOWN: " << downColor[0] << " " << downColor[1] << " " << downColor[2] << std::endl;
+void Vertices::rotateX(std::array<float, 3> backColor,
+                       std::array<float, 3> frontColor,
+                       std::array<float, 3> topColor,
+                       std::array<float, 3> downColor,
+                       std::array<float, 3> leftColor,
+                       std::array<float, 3> rightColor) {
+
+    hasChanged = true;
+    setOldColors();
+
     for(int j=0; j<6; j++){
 
         for (int i = j*6; i < 6 + j*6; i++) {
@@ -133,13 +133,15 @@ void Vertices::rotateX() {
 
 }
 
-void Vertices::rotateY() {
-    float backColor[3] = { vertices[3], vertices[4], vertices[5] };
-    float frontColor[3] = { vertices[39], vertices[40], vertices[41] };
-    float topColor[3] = { vertices[147], vertices[148], vertices[149] };
-    float downColor[3] = { vertices[183], vertices[184], vertices[185] };
-    float leftColor[3] = { vertices[111], vertices[112], vertices[113] };
-    float rightColor[3] = { vertices[75], vertices[76], vertices[77] };
+void Vertices::rotateY(std::array<float, 3> backColor,
+                       std::array<float, 3> frontColor,
+                       std::array<float, 3> topColor,
+                       std::array<float, 3> downColor,
+                       std::array<float, 3> leftColor,
+                       std::array<float, 3> rightColor) {
+
+    hasChanged = true;
+    setOldColors();
 
     for(int j=0; j<6; j++){
 
@@ -192,14 +194,15 @@ void Vertices::rotateY() {
     }
 }
 
-void Vertices::rotateZ() {
+void Vertices::rotateZ(std::array<float, 3> backColor,
+                       std::array<float, 3> frontColor,
+                       std::array<float, 3> topColor,
+                       std::array<float, 3> downColor,
+                       std::array<float, 3> leftColor,
+                       std::array<float, 3> rightColor) {
 
-    float backColor[3] = { vertices[3], vertices[4], vertices[5] };
-    float frontColor[3] = { vertices[39], vertices[40], vertices[41] };
-    float topColor[3] = { vertices[147], vertices[148], vertices[149] };
-    float downColor[3] = { vertices[183], vertices[184], vertices[185] };
-    float leftColor[3] = { vertices[111], vertices[112], vertices[113] };
-    float rightColor[3] = { vertices[75], vertices[76], vertices[77] };
+    hasChanged = true;
+    setOldColors();
 
     for(int j=0; j<6; j++){
 
@@ -251,4 +254,56 @@ void Vertices::rotateZ() {
         }
     }
 
+}
+
+std::array<float, 3> Vertices::backColor() {
+    std::array<float, 3> backColor = { vertices[3], vertices[4], vertices[5] };
+    return backColor;
+}
+
+std::array<float, 3> Vertices::frontColor() {
+    std::array<float, 3> frontColor = { vertices[39], vertices[40], vertices[41] };
+    return frontColor;
+}
+
+std::array<float, 3> Vertices::topColor() {
+    std::array<float, 3> topColor = { vertices[147], vertices[148], vertices[149] };
+    return topColor;
+}
+
+std::array<float, 3> Vertices::downColor() {
+    std::array<float, 3> downColor = { vertices[183], vertices[184], vertices[185] };
+    return downColor;
+}
+
+std::array<float, 3> Vertices::leftColor() {
+    std::array<float, 3> leftColor = { vertices[111], vertices[112], vertices[113] };
+    return leftColor;
+}
+
+std::array<float, 3> Vertices::rightColor() {
+    std::array<float, 3> rightColor = { vertices[75], vertices[76], vertices[77] };
+    return rightColor;
+}
+
+std::array<std::array<float, 3>, 6> Vertices::allColors() {
+    hasChanged = false;
+    std::array<std::array<float, 3>, 6> allColors = {
+            backColorOld,
+            frontColorOld,
+            topColorOld,
+            downColorOld,
+            leftColorOld,
+            rightColorOld
+    };
+    return allColors;
+}
+
+void Vertices::setOldColors() {
+    backColorOld = backColor();
+    frontColorOld = frontColor();
+    topColorOld = topColor();
+    downColorOld = downColor();
+    leftColorOld = leftColor();
+    rightColorOld = rightColor();
 }

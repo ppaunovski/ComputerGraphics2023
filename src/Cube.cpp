@@ -49,7 +49,6 @@ void Cube::init(){
     this->actualSate = new Still(this);
 
     this->isRotating = false;
-    this->isStill = true;
 
 }
 
@@ -116,13 +115,7 @@ bool Cube::rotateZBACK(float d) {
 
 }
 
-void Cube::contRotate(float d) {
 
-    if(isRotating){
-        model = new  glm::mat4(glm::rotate(*model, glm::radians(10.0f * 2.5f * d), glm::vec3(1.0f, 0.3f, 0.5f)));
-    }
-
-}
 
 bool Cube::is_top(){
 

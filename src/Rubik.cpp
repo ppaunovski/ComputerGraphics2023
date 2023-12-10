@@ -113,5 +113,11 @@ void Rubik::addCube(int index, Vertices *v, glm::vec3 pos) {
     glm::mat4 difMat = glm::mat4(1.0f);
     Cube *cube = new Cube(new glm::mat4 (1.0f), new glm::vec3 (pos), index, v);
     cubes.push_back(cube);
+
+    if(cubes.size() == 26){
+        for(auto c : cubes){
+            c->rubik = cubes;
+        }
+    }
 }
 

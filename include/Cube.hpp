@@ -6,6 +6,7 @@
 #define OPENGLPRJ_CUBE_HPP
 
 
+#include <vector>
 #include "glm/glm.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "CubeState.hpp"
@@ -19,7 +20,6 @@ public:
     Cube(glm::mat4 *model, glm::vec3 *position);
 
     bool isRotating;
-    bool isStill;
     int pos;
     int top[9] = {0,1,2,3,4,5,6,7,8};
     int down[9] = {17,18,19,20,21,22,23,24,25};
@@ -28,6 +28,8 @@ public:
     int front[9] = {6,7,8,14,15,16,23,24,25};
     int back[9] = {0,1,2,9,10,11,17,18,19};
 public:
+    //Rubik *rubik;
+    std::vector<Cube*> rubik;
     Vertices *vertices;
     glm::mat4 *model;
     glm::vec3 *position;
@@ -43,8 +45,6 @@ public:
 
     bool rotate(float d);
 
-    void contRotate(float d);
-
     void init();
 
     bool is_top();
@@ -58,12 +58,6 @@ public:
     bool is_front();
 
     bool is_back();
-
-    bool rotateY(float d);
-
-    bool rotateX(float d);
-
-    bool rotateZ(float d);
 
     bool rotateZBACK(float d);
 

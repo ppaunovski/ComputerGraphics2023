@@ -10,6 +10,8 @@
 #include <vector>
 #include "Cube.hpp"
 #include "Rubik.hpp"
+#include "Vertices.hpp"
+
 
 const std::string program_name = ("Camera");
 
@@ -33,7 +35,8 @@ static float deltaTime = 0.0f; // time between current frame and last frame
 static float lastFrame = 0.0f;
 
 static Cube cube;
-static Rubik rubik;
+static Rubik rubik1;
+static Rubik rubik(1);
 
 int main() {
   // glfw: initialize and configure
@@ -182,6 +185,57 @@ int main() {
             -0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 0.0f,    // Back left (Yellow)
             -0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 0.0f    // Front left (Yellow)
     };
+    Vertices* v[] = {
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+             new Vertices(),
+
+    };
+    glm::vec3 pos[26] = {
+            //TOP
+            glm::vec3(-1.0f, 1.0f, -1.0f), glm::vec3(0.0f, 1.0f, -1.0f), glm::vec3(1.0f, 1.0f, -1.0f),
+            glm::vec3(-1.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 0.0f),
+            glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f),
+
+            //MID
+            glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(1.0f, 0.0f, -1.0f),
+            glm::vec3(-1.0f, 0.0f, 0.0f),
+            //glm::vec3(0.0f, 0.0f, 0.0f), // THIS ONE IS USELESS
+            glm::vec3(1.0f, 0.0f, 0.0f),
+            glm::vec3(-1.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 1.0f),
+
+            //BOT
+            glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(0.0f, -1.0f, -1.0f), glm::vec3(1.0f, -1.0f, -1.0f),
+            glm::vec3(-1.0f, -1.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(1.0f, -1.0f, 0.0f),
+            glm::vec3(-1.0f, -1.0f, 1.0f), glm::vec3(0.0f, -1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f),
+    };
+    for(int i=0; i<26; i++){
+
+        rubik.addCube(i, v[i], pos[i]);
+    }
 
   // world space positions of our cubes
   glm::vec3 cubePositions[] = {
@@ -195,6 +249,26 @@ int main() {
   cube.model = new glm::mat4(1.0f);
 
   unsigned int VBO, VAO;
+  unsigned int VBOs[26];
+  unsigned int VAOs[26];
+//  unsigned int VAO1;
+    glGenVertexArrays(26, VAOs);
+//    glGenVertexArrays(1, &VAO1);
+    glGenBuffers(26, VBOs);
+  for(int i=0; i<26; i++){
+      glBindVertexArray(VAOs[i]);
+
+      glBindBuffer(GL_ARRAY_BUFFER, VBOs[i]);
+      glBufferData(GL_ARRAY_BUFFER, sizeof(v[i]->vertices), v[i]->vertices, GL_STATIC_DRAW);
+
+      // position attribute
+      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), nullptr);
+      glEnableVertexAttribArray(0);
+      // texture coord attribute
+      glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float),
+                            reinterpret_cast<void *>(3 * sizeof(float)));
+      glEnableVertexAttribArray(1);
+  }
 
   glGenVertexArrays(1, &VAO);
   glGenBuffers(1, &VBO);
@@ -313,7 +387,29 @@ int main() {
     ourShader.setMat4("view", view);
 
     // render boxes
-    glBindVertexArray(VAO);
+    for(int i=0; i<26; i++){
+
+            glBindVertexArray(VAOs[i]);
+            Cube *c = rubik.cubes[i];
+//        for(auto c : rubik.cubes){
+//            glm::mat4 model = *c->model;
+//            model = glm::translate(model, *c->position);
+//            //model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
+//            ourShader.setMat4("model", model);
+//            glDrawArrays(GL_TRIANGLES, i*36, i*36+36);
+//
+//        }
+        glm::mat4 model = *c->model;
+        model = glm::translate(model, *c->position);
+        //model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
+        ourShader.setMat4("model", model);
+        glDrawArrays(GL_TRIANGLES, i*36*0, 0*i*36+36);
+
+        glBindBuffer(GL_ARRAY_BUFFER, VBOs[i]);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(v[i]->vertices), v[i]->vertices);
+
+    }
+    //glBindVertexArray(VAO);
     //single cube
 //    glm::mat4 model = cube.model;
 //    model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.0f));
@@ -326,13 +422,13 @@ int main() {
 //      model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
 //      ourShader.setMat4("model", model);
 //      glDrawArrays(GL_TRIANGLES, 0, 36);
-      for(auto c : rubik.cubes){
-          glm::mat4 model = *c->model;
-          model = glm::translate(model, *c->position);
-          //model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
-          ourShader.setMat4("model", model);
-          glDrawArrays(GL_TRIANGLES, 0, 36);
-      }
+//      for(auto c : rubik.cubes){
+//          glm::mat4 model = *c->model;
+//          model = glm::translate(model, *c->position);
+//          //model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
+//          ourShader.setMat4("model", model);
+//          glDrawArrays(GL_TRIANGLES, 0, 36);
+//      }
 
 //    for (unsigned int i = 1; i < 2; i++) {
 //      // calculate the model matrix for each object and pass it to shader before
@@ -359,6 +455,8 @@ int main() {
   // ------------------------------------------------------------------------
   glDeleteVertexArrays(1, &VAO);
   glDeleteBuffers(1, &VBO);
+    glDeleteVertexArrays(26, VAOs);
+    glDeleteBuffers(26, VBOs);
 
   // glfw: terminate, clearing all previously allocated GLFW resources.
   // ------------------------------------------------------------------

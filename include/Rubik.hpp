@@ -8,6 +8,7 @@
 
 #include <vector>
 #include "Cube.hpp"
+#include "Vertices.hpp"
 
 enum SIDE{
     T,
@@ -21,6 +22,8 @@ enum SIDE{
 class Rubik {
 
 public:
+    Rubik(int i);
+
     std::vector<Cube*> cubes;
     bool isRotating;
     bool isConcreteRotating[6];
@@ -31,6 +34,7 @@ public:
 
 
     void startRotation(float deltaTime, SIDE side);
+    void addCube(int index, Vertices *v, glm::vec3 pos);
 };
 
 

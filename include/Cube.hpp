@@ -9,10 +9,12 @@
 #include "glm/glm.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "CubeState.hpp"
+#include "Vertices.hpp"
 
 class Cube {
 public:
     Cube(glm::mat4 *model, glm::vec3 *position, int pos);
+    Cube(glm::mat4 *model, glm::vec3 *position, int pos, Vertices *v);
 
     Cube(glm::mat4 *model, glm::vec3 *position);
 
@@ -26,6 +28,7 @@ public:
     int front[9] = {6,7,8,14,15,16,23,24,25};
     int back[9] = {0,1,2,9,10,11,17,18,19};
 public:
+    Vertices *vertices;
     glm::mat4 *model;
     glm::vec3 *position;
     CubeState *is_Rotating;

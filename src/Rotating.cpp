@@ -144,58 +144,74 @@ bool Rotating::rotateXLEFT(float d) {
     start += increment*velocity;
     //std::cout<<start<<std::endl;
     if(start > goal){
-        std::cout<<cube->pos<<std::endl;
+        // left color same
+        // top color = back color
+        // right color same
+        // back color
+
+//        std::cout<<cube->pos<<std::endl;
         cube->pos = rot_left[cube->pos];
-        std::cout<<cube->pos<<std::endl;
+//        std::cout<<cube->pos<<std::endl;
+//
+//
+//        float x = cube->position->x;
+//        float y = cube->position->y;
+//        float z = cube->position->z;
+//
+//        if(y == -1.0f){
+//            if(z == -1.0f){
+//                y = 1.0f;
+//            }
+//            else if(z == 0.0f){
+//                y = 0.0f;
+//                z = -1.0f;
+//            }
+//            else{
+//                z = -1.0f;
+//            }
+//        }
+//        else if(y == 0.0f){
+//
+//            if(z == -1.0f){
+//                y = 1.0f;
+//                z = 0.0f;
+//            }
+//            else if(z == 0.0f){
+//
+//            }
+//            else{
+//                z = 0.0f;
+//                y = -1.0f;
+//            }
+//
+//        }
+//        else{
+//
+//            if(z == -1.0f){
+//                z = 1.0f;
+//            }
+//            else if(z == 0.0f){
+//                y=0.0f;
+//                z=1.0f;
+//            }
+//            else{
+//                y = -1.0f;
+//            }
+//
+//        }
+//
+//        cube->position = new glm::vec3(x, y, z);
 
-
-        float x = cube->position->x;
-        float y = cube->position->y;
-        float z = cube->position->z;
-
-        if(y == -1.0f){
-            if(z == -1.0f){
-                y = 1.0f;
+        cube->vertices->rotateX();
+        cube->model = new glm::mat4(1.0f);
+        std::cout<<"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"<<std::endl;
+        for(int i=0; i<36; i++){
+            for(int j=0; j<6; j++){
+                std::cout << cube->vertices->vertices[i*6 + j] << " ";
             }
-            else if(z == 0.0f){
-                y = 0.0f;
-                z = -1.0f;
-            }
-            else{
-                z = -1.0f;
-            }
+            std::cout<<std::endl;
         }
-        else if(y == 0.0f){
 
-            if(z == -1.0f){
-                y = 1.0f;
-                z = 0.0f;
-            }
-            else if(z == 0.0f){
-
-            }
-            else{
-                z = 0.0f;
-                y = -1.0f;
-            }
-
-        }
-        else{
-
-            if(z == -1.0f){
-                z = 1.0f;
-            }
-            else if(z == 0.0f){
-                y=0.0f;
-                z=1.0f;
-            }
-            else{
-                y = -1.0f;
-            }
-
-        }
-
-        cube->position = new glm::vec3(x, y, z);
 
         stop();
     }
@@ -221,54 +237,57 @@ bool Rotating::rotateXRIGHT(float d) {
     if(start > goal){
         cube->pos = rot_right[cube->pos];
 
-        float x = cube->position->x;
-        float y = cube->position->y;
-        float z = cube->position->z;
+//        float x = cube->position->x;
+//        float y = cube->position->y;
+//        float z = cube->position->z;
+//
+//        if(y == -1.0f){
+//            if(z == -1.0f){
+//                y = 1.0f;
+//            }
+//            else if(z == 0.0f){
+//                y = 0.0f;
+//                z = -1.0f;
+//            }
+//            else{
+//                z = -1.0f;
+//            }
+//        }
+//        else if(y == 0.0f){
+//
+//            if(z == -1.0f){
+//                y = 1.0f;
+//                z = 0.0f;
+//            }
+//            else if(z == 0.0f){
+//
+//            }
+//            else{
+//                z = 0.0f;
+//                y = -1.0f;
+//            }
+//
+//        }
+//        else{
+//
+//            if(z == -1.0f){
+//                z = 1.0f;
+//            }
+//            else if(z == 0.0f){
+//                y=0.0f;
+//                z=1.0f;
+//            }
+//            else{
+//                y = -1.0f;
+//            }
+//
+//        }
 
-        if(y == -1.0f){
-            if(z == -1.0f){
-                y = 1.0f;
-            }
-            else if(z == 0.0f){
-                y = 0.0f;
-                z = -1.0f;
-            }
-            else{
-                z = -1.0f;
-            }
-        }
-        else if(y == 0.0f){
 
-            if(z == -1.0f){
-                y = 1.0f;
-                z = 0.0f;
-            }
-            else if(z == 0.0f){
+//        cube->position = new glm::vec3(x, y, z);
 
-            }
-            else{
-                z = 0.0f;
-                y = -1.0f;
-            }
-
-        }
-        else{
-
-            if(z == -1.0f){
-                z = 1.0f;
-            }
-            else if(z == 0.0f){
-                y=0.0f;
-                z=1.0f;
-            }
-            else{
-                y = -1.0f;
-            }
-
-        }
-
-
-        cube->position = new glm::vec3(x, y, z);
+        cube->vertices->rotateX();
+        cube->model = new glm::mat4(1.0f);
 
         stop();
     }
@@ -293,58 +312,61 @@ bool Rotating::rotateYTOP(float d) {
     //std::cout<<start<<std::endl;
     if(start > goal){
 
-        std::cout<<cube->pos<<std::endl;
+//        std::cout<<cube->pos<<std::endl;
         cube->pos = rot_top[cube->pos];
-        std::cout<<cube->pos<<std::endl;
+//        std::cout<<cube->pos<<std::endl;
 
-        float x = cube->position->x;
-        float y = cube->position->y;
-        float z = cube->position->z;
+//        float x = cube->position->x;
+//        float y = cube->position->y;
+//        float z = cube->position->z;
+//
+//        if(x == -1.0f){
+//            if(z == -1.0f){
+//                z = 1.0f;
+//            }
+//            else if(z == 0.0f){
+//                x = 0.0f;
+//                z = 1.0f;
+//            }
+//            else{
+//                x = 1.0f;
+//            }
+//        }
+//        else if(x == 0.0f){
+//
+//            if(z == -1.0f){
+//                x = -1.0f;
+//                z = 0.0f;
+//            }
+//            else if(z == 0.0f){
+//
+//            }
+//            else{
+//                z = 0.0f;
+//                x = 1.0f;
+//            }
+//
+//        }
+//        else{
+//
+//            if(z == -1.0f){
+//                x = -1.0f;
+//                z = -1.0f;
+//            }
+//            else if(z == 0.0f){
+//                x=0.0f;
+//                z=-1.0f;
+//            }
+//            else{
+//                z = -1.0f;
+//            }
+//
+//        }
+//
+//        cube->position = new glm::vec3(x, y, z);
 
-        if(x == -1.0f){
-            if(z == -1.0f){
-                z = 1.0f;
-            }
-            else if(z == 0.0f){
-                x = 0.0f;
-                z = 1.0f;
-            }
-            else{
-                x = 1.0f;
-            }
-        }
-        else if(x == 0.0f){
-
-            if(z == -1.0f){
-                x = -1.0f;
-                z = 0.0f;
-            }
-            else if(z == 0.0f){
-
-            }
-            else{
-                z = 0.0f;
-                x = 1.0f;
-            }
-
-        }
-        else{
-
-            if(z == -1.0f){
-                x = -1.0f;
-                z = -1.0f;
-            }
-            else if(z == 0.0f){
-                x=0.0f;
-                z=-1.0f;
-            }
-            else{
-                z = -1.0f;
-            }
-
-        }
-
-        cube->position = new glm::vec3(x, y, z);
+        cube->vertices->rotateY();
+        cube->model = new glm::mat4(1.0f);
 
         stop();
     }
@@ -371,54 +393,57 @@ bool Rotating::rotateYDOWN(float d) {
 
         cube->pos = rot_down[cube->pos];
 
-        float x = cube->position->x;
-        float y = cube->position->y;
-        float z = cube->position->z;
+//        float x = cube->position->x;
+//        float y = cube->position->y;
+//        float z = cube->position->z;
+//
+//        if(x == -1.0f){
+//            if(z == -1.0f){
+//                z = 1.0f;
+//            }
+//            else if(z == 0.0f){
+//                x = 0.0f;
+//                z = 1.0f;
+//            }
+//            else{
+//                x = 1.0f;
+//            }
+//        }
+//        else if(x == 0.0f){
+//
+//            if(z == -1.0f){
+//                x = -1.0f;
+//                z = 0.0f;
+//            }
+//            else if(z == 0.0f){
+//
+//            }
+//            else{
+//                z = 0.0f;
+//                x = 1.0f;
+//            }
+//
+//        }
+//        else{
+//
+//            if(z == -1.0f){
+//                x = -1.0f;
+//                z = -1.0f;
+//            }
+//            else if(z == 0.0f){
+//                x=0.0f;
+//                z=-1.0f;
+//            }
+//            else{
+//                z = -1.0f;
+//            }
+//
+//        }
+//
+//        cube->position = new glm::vec3(x, y, z);
 
-        if(x == -1.0f){
-            if(z == -1.0f){
-                z = 1.0f;
-            }
-            else if(z == 0.0f){
-                x = 0.0f;
-                z = 1.0f;
-            }
-            else{
-                x = 1.0f;
-            }
-        }
-        else if(x == 0.0f){
-
-            if(z == -1.0f){
-                x = -1.0f;
-                z = 0.0f;
-            }
-            else if(z == 0.0f){
-
-            }
-            else{
-                z = 0.0f;
-                x = 1.0f;
-            }
-
-        }
-        else{
-
-            if(z == -1.0f){
-                x = -1.0f;
-                z = -1.0f;
-            }
-            else if(z == 0.0f){
-                x=0.0f;
-                z=-1.0f;
-            }
-            else{
-                z = -1.0f;
-            }
-
-        }
-
-        cube->position = new glm::vec3(x, y, z);
+        cube->vertices->rotateY();
+        cube->model = new glm::mat4(1.0f);
 
         stop();
     }
@@ -444,53 +469,56 @@ bool Rotating::rotateZFRONT(float d) {
     if(start > goal){
         cube->pos = rot_front[cube->pos];
 
-        float x = cube->position->x;
-        float y = cube->position->y;
-        float z = cube->position->z;
+//        float x = cube->position->x;
+//        float y = cube->position->y;
+//        float z = cube->position->z;
+//
+//        if(y == -1.0f){
+//            if(x == -1.0f){
+//                x = 1.0f;
+//            }
+//            else if(x == 0.0f){
+//                y = 0.0f;
+//                x = 1.0f;
+//            }
+//            else{
+//                y = 1.0f;
+//            }
+//        }
+//        else if(y == 0.0f){
+//
+//            if(x == -1.0f){
+//                y = -1.0f;
+//                x = 0.0f;
+//            }
+//            else if(x == 0.0f){
+//
+//            }
+//            else{
+//                x = 0.0f;
+//                y = 1.0f;
+//            }
+//
+//        }
+//        else{
+//
+//            if(x == -1.0f){
+//                y = -1.0f;
+//            }
+//            else if(x == 0.0f){
+//                y=0.0f;
+//                x=-1.0f;
+//            }
+//            else{
+//                x = -1.0f;
+//            }
+//
+//        }
+//
+//        cube->position = new glm::vec3(x, y, z);
 
-        if(y == -1.0f){
-            if(x == -1.0f){
-                x = 1.0f;
-            }
-            else if(x == 0.0f){
-                y = 0.0f;
-                x = 1.0f;
-            }
-            else{
-                y = 1.0f;
-            }
-        }
-        else if(y == 0.0f){
-
-            if(x == -1.0f){
-                y = -1.0f;
-                x = 0.0f;
-            }
-            else if(x == 0.0f){
-
-            }
-            else{
-                x = 0.0f;
-                y = 1.0f;
-            }
-
-        }
-        else{
-
-            if(x == -1.0f){
-                y = -1.0f;
-            }
-            else if(x == 0.0f){
-                y=0.0f;
-                x=-1.0f;
-            }
-            else{
-                x = -1.0f;
-            }
-
-        }
-
-        cube->position = new glm::vec3(x, y, z);
+        cube->vertices->rotateZ();
+        cube->model = new glm::mat4(1.0f);
 
         stop();
     }
@@ -517,53 +545,56 @@ bool Rotating::rotateZBACK(float d) {
 
         cube->pos = rot_back[cube->pos];
 
-        float x = cube->position->x;
-        float y = cube->position->y;
-        float z = cube->position->z;
+//        float x = cube->position->x;
+//        float y = cube->position->y;
+//        float z = cube->position->z;
+//
+//        if(y == -1.0f){
+//            if(x == -1.0f){
+//                x = 1.0f;
+//            }
+//            else if(x == 0.0f){
+//                y = 0.0f;
+//                x = 1.0f;
+//            }
+//            else{
+//                y = 1.0f;
+//            }
+//        }
+//        else if(y == 0.0f){
+//
+//            if(x == -1.0f){
+//                y = -1.0f;
+//                x = 0.0f;
+//            }
+//            else if(x == 0.0f){
+//
+//            }
+//            else{
+//                x = 0.0f;
+//                y = 1.0f;
+//            }
+//
+//        }
+//        else{
+//
+//            if(x == -1.0f){
+//                y = -1.0f;
+//            }
+//            else if(x == 0.0f){
+//                y=0.0f;
+//                x=-1.0f;
+//            }
+//            else{
+//                x = -1.0f;
+//            }
+//
+//        }
+//
+//        cube->position = new glm::vec3(x, y, z);
 
-        if(y == -1.0f){
-            if(x == -1.0f){
-                x = 1.0f;
-            }
-            else if(x == 0.0f){
-                y = 0.0f;
-                x = 1.0f;
-            }
-            else{
-                y = 1.0f;
-            }
-        }
-        else if(y == 0.0f){
-
-            if(x == -1.0f){
-                y = -1.0f;
-                x = 0.0f;
-            }
-            else if(x == 0.0f){
-
-            }
-            else{
-                x = 0.0f;
-                y = 1.0f;
-            }
-
-        }
-        else{
-
-            if(x == -1.0f){
-                y = -1.0f;
-            }
-            else if(x == 0.0f){
-                y=0.0f;
-                x=-1.0f;
-            }
-            else{
-                x = -1.0f;
-            }
-
-        }
-
-        cube->position = new glm::vec3(x, y, z);
+        cube->vertices->rotateZ();
+        cube->model = new glm::mat4(1.0f);
 
         stop();
     }

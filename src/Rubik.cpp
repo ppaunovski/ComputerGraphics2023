@@ -9,7 +9,14 @@
 Rubik::Rubik(const std::vector<Cube*> &cubes) : cubes(cubes) {
 
 }
+Rubik::Rubik(int j){
+    this->cubes = std::vector<Cube*>();
+    for(int i=0; i<6; i++){
+        isConcreteRotating[i] = false;
+    }
+    isRotating = false;
 
+}
 Rubik::Rubik() {
     this->cubes = std::vector<Cube*>();
     for(int i=0; i<6; i++){
@@ -100,5 +107,11 @@ void Rubik::startRotation(float deltaTime, SIDE side) {
         std::cout<<"-------------------------------------------------"<<std::endl;
     }
 
+}
+
+void Rubik::addCube(int index, Vertices *v, glm::vec3 pos) {
+    glm::mat4 difMat = glm::mat4(1.0f);
+    Cube *cube = new Cube(new glm::mat4 (1.0f), new glm::vec3 (pos), index, v);
+    cubes.push_back(cube);
 }
 

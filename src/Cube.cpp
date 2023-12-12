@@ -52,10 +52,10 @@ void Cube::init(){
 
 }
 
-bool Cube::rotate(float d) {
+bool Cube::rotate(float d, glm::vec3 vec) {
 
 
-    isRotating = actualSate->rotate(d);
+    return actualSate->rotate(d, vec);
     //std::cout<<"rotate in Cube called"<<std::endl;
     return isRotating;
 

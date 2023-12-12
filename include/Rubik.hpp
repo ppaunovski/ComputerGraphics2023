@@ -35,6 +35,8 @@ public:
 
     void startRotation(float deltaTime, SIDE side);
     void addCube(int index, Vertices *v, glm::vec3 pos);
+
+    void rotateOwnAxis(float d, glm::vec3 vec);
 };
 
 

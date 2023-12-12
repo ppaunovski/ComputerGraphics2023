@@ -16,7 +16,7 @@ public:
 
     explicit Still(Cube *cube);
 
-    bool rotate(float d) override;
+    bool rotate(float d, glm::vec3 vec) override;
     bool rotateXLEFT(float d) override;
     bool rotateXRIGHT(float d) override;
     bool rotateYTOP(float d) override;

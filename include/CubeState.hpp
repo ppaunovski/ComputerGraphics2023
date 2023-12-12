@@ -5,9 +5,11 @@
 #ifndef OPENGLPRJ_CUBESTATE_HPP
 #define OPENGLPRJ_CUBESTATE_HPP
 
- class CubeState {
+#include "glm/vec3.hpp"
+
+class CubeState {
 public:
-     virtual bool rotate(float d);
+     virtual bool rotate(float d, glm::vec3 vec);
 
      virtual void translate();
      virtual void stop();

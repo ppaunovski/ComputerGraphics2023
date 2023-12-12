@@ -9,7 +9,7 @@ Translating::Translating(Cube *cube) {
     this->cube = cube;
 }
 
-bool Translating::rotate(float d) {
+bool Translating::rotate(float d, glm::vec3 vec) {
     std::cout<<"Wait to end translation"<<std::endl;
     return false;
 }

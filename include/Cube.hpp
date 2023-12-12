@@ -43,7 +43,7 @@ public:
     Cube(glm::mat4 model, glm::vec3 position);
     Cube(glm::mat4 model, glm::vec3 position, int pos);
 
-    bool rotate(float d);
+    bool rotate(float d, glm::vec3 vec);
 
     void init();
 

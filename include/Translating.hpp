@@ -13,7 +13,7 @@ class Translating : public CubeState {
 public:
     Cube *cube;
     Translating(Cube *cube);
-    bool rotate(float d) override;
+    bool rotate(float d, glm::vec3 vec) override;
 
     void translate() override;
     void stop() override;

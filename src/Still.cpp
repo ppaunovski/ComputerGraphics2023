@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Still.hpp"
 
-bool Still::rotate(float d) {
+bool Still::rotate(float d, glm::vec3 vec) {
     this->cube->actualSate = this->cube->is_Rotating;
     return false;
 

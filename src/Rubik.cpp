@@ -99,12 +99,9 @@ void Rubik::startRotation(float deltaTime, SIDE side) {
     isConcreteRotating[side] = isRotating;
 
     if(!isConcreteRotating[side]){
-        int count = 0;
         for(auto c : cubes){
-            std::cout << count << ". Cube pos: " << c->pos << " position coord: " << c->position->x << " " << c->position->y << " " << c->position->z << std::endl;
-            count++;
+            c->vertices->hasChanged = false;
         }
-        std::cout<<"-------------------------------------------------"<<std::endl;
     }
 
 }
@@ -119,5 +116,13 @@ void Rubik::addCube(int index, Vertices *v, glm::vec3 pos) {
             c->rubik = cubes;
         }
     }
+}
+
+void Rubik::rotateOwnAxis(float d, glm::vec3 vec) {
+
+    for(auto cube : cubes){
+        cube->rotate(d, vec);
+    }
+
 }
 

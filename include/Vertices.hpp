@@ -26,6 +26,7 @@ public:
     std::array<float, 3> leftColorOld;
     std::array<float, 3> rightColorOld;
     bool hasChanged;
+    bool isUsed;
     Vertices();
     void rotateX(std::array<float, 3> backColor,
                  std::array<float, 3> frontColor,

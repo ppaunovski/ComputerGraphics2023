@@ -4,7 +4,7 @@
 
 #include "CubeState.hpp"
 
-bool CubeState::rotate(float d) {
+bool CubeState::rotate(float d, glm::vec3 vec) {
 
 }
 

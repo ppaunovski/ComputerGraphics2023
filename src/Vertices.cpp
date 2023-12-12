@@ -7,36 +7,36 @@
 Vertices::Vertices(){
     float vertices[] = {
             // Vertices for the back face
-            -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f,   // Bottom left (Green)
-            0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f,    // Bottom right (Green)
-            0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,     // Top right (Green)
-            0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,     // Top right (Green)
-            -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,    // Top left (Green)
-            -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f,   // Bottom left (Green)
+            -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 1.0f,   // Bottom left (Green)
+            0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 1.0f,    // Bottom right (Green)
+            0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f,     // Top right (Green)
+            0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f,     // Top right (Green)
+            -0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f,    // Top left (Green)
+            -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 1.0f,   // Bottom left (Green)
 
             // Vertices for the front face
-            -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,    // Bottom left (Blue)
-            0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,     // Bottom right (Blue)
-            0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,      // Top right (Blue)
-            0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,      // Top right (Blue)
-            -0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,     // Top left (Blue)
-            -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,    // Bottom left (Blue)
+            -0.5f, -0.5f, 0.5f, 0.0f, 1.0f, 0.0f,    // Bottom left (Blue)
+            0.5f, -0.5f, 0.5f, 0.0f, 1.0f, 0.0f,     // Bottom right (Blue)
+            0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,      // Top right (Blue)
+            0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,      // Top right (Blue)
+            -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,     // Top left (Blue)
+            -0.5f, -0.5f, 0.5f, 0.0f, 1.0f, 0.0f,    // Bottom left (Blue)
 
             // Vertices for the right face
-            0.5f, -0.5f, -0.5f, 1.0f, 0.5f, 0.0f,    // Bottom front (Red)
-            0.5f, -0.5f, 0.5f, 1.0f, 0.5f, 0.0f,     // Bottom back (Red)
-            0.5f, 0.5f, 0.5f, 1.0f, 0.5f, 0.0f,      // Top back (Red)
-            0.5f, 0.5f, 0.5f, 1.0f, 0.5f, 0.0f,      // Top back (Red)
-            0.5f, 0.5f, -0.5f, 1.0f, 0.5f, 0.0f,     // Top front (Red)
-            0.5f, -0.5f, -0.5f, 1.0f, 0.5f, 0.0f,    // Bottom front (Red)
+            0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,    // Bottom front (Red)
+            0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,     // Bottom back (Red)
+            0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,      // Top back (Red)
+            0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,      // Top back (Red)
+            0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,     // Top front (Red)
+            0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,    // Bottom front (Red)
 
             // Vertices for the left face
-            -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,   // Bottom front (Orange)
-            -0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,    // Bottom back (Orange)
-            -0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,     // Top back (Orange)
-            -0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,     // Top back (Orange)
-            -0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,    // Top front (Orange)
-            -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,   // Bottom front (Orange)
+            -0.5f, -0.5f, -0.5f, 1.0f, 0.5f, 0.0f,   // Bottom front (Orange)
+            -0.5f, -0.5f, 0.5f, 1.0f, 0.5f, 0.0f,    // Bottom back (Orange)
+            -0.5f, 0.5f, 0.5f, 1.0f, 0.5f, 0.0f,     // Top back (Orange)
+            -0.5f, 0.5f, 0.5f, 1.0f, 0.5f, 0.0f,     // Top back (Orange)
+            -0.5f, 0.5f, -0.5f, 1.0f, 0.5f, 0.0f,    // Top front (Orange)
+            -0.5f, -0.5f, -0.5f, 1.0f, 0.5f, 0.0f,   // Bottom front (Orange)
 
             // Vertices for the top face
             -0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f,    // Front left (White)
@@ -61,6 +61,7 @@ Vertices::Vertices(){
     setOldColors();
 
     hasChanged = false;
+    isUsed = false;
 
 }
 
@@ -71,6 +72,9 @@ void Vertices::rotateX(std::array<float, 3> backColor,
                        std::array<float, 3> leftColor,
                        std::array<float, 3> rightColor) {
 
+//   if(!isUsed){
+//       hasChanged = true;
+//   }
     hasChanged = true;
     setOldColors();
 
@@ -122,6 +126,7 @@ void Vertices::rotateX(std::array<float, 3> backColor,
                     break;
             }
         }
+
     }
 
 //    for(int i=0; i<36; i++){
@@ -287,15 +292,27 @@ std::array<float, 3> Vertices::rightColor() {
 }
 
 std::array<std::array<float, 3>, 6> Vertices::allColors() {
+    std::array<std::array<float, 3>, 6> allColors{};
+    if(hasChanged){
+        allColors[BACK_COLOR] = backColorOld;
+        allColors[FRONT_COLOR] = frontColorOld;
+        allColors[TOP_COLOR] = topColorOld;
+        allColors[DOWN_COLOR] = downColorOld;
+        allColors[LEFT_COLOR] = leftColorOld;
+        allColors[RIGHT_COLOR] = rightColorOld;
+
+    } else{
+        allColors[BACK_COLOR] = backColor();
+        allColors[FRONT_COLOR] = frontColor();
+        allColors[TOP_COLOR] = topColor();
+        allColors[DOWN_COLOR] = downColor();
+        allColors[LEFT_COLOR] = leftColor();
+        allColors[RIGHT_COLOR] = rightColor();
+    }
+
+    isUsed = !isUsed;
     hasChanged = false;
-    std::array<std::array<float, 3>, 6> allColors = {
-            backColorOld,
-            frontColorOld,
-            topColorOld,
-            downColorOld,
-            leftColorOld,
-            rightColorOld
-    };
+
     return allColors;
 }
 

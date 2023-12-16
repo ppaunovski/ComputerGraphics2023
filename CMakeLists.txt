@@ -72,7 +72,8 @@ add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} ${PROJECT_HEADERS}
         src/Rubik.cpp
         include/Rubik.hpp
         src/Vertices.cpp
-        include/Vertices.hpp)
+        include/Vertices.hpp
+)
 target_link_libraries(${PROJECT_NAME}
 		      glfw
                       ${GLFW_LIBRARIES} ${GLAD_LIBRARIES}

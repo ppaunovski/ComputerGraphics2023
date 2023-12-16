@@ -245,8 +245,8 @@ int main() {
       glm::vec3(1.3f, -2.0f, -2.5f),  glm::vec3(1.5f, 2.0f, -2.5f),
       glm::vec3(1.5f, 0.2f, -1.5f),   glm::vec3(-1.3f, 1.0f, -1.5f)};
 
-  cube.position = &cubePositions[0];
-  cube.model = new glm::mat4(1.0f);
+  cube.position = cubePositions[0];
+  cube.model =  glm::mat4(1.0f);
 
   unsigned int VBO, VAO;
   unsigned int VBOs[26];
@@ -270,77 +270,77 @@ int main() {
       glEnableVertexAttribArray(1);
   }
 
-  glGenVertexArrays(1, &VAO);
-  glGenBuffers(1, &VBO);
-  glBindVertexArray(VAO);
-
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-  // position attribute
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), nullptr);
-  glEnableVertexAttribArray(0);
-  // texture coord attribute
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float),
-                        reinterpret_cast<void *>(3 * sizeof(float)));
-  glEnableVertexAttribArray(1);
-
-  // load and create a texture
-  // -------------------------
-  unsigned int texture1, texture2;
-  // texture 1
-  // ---------
-  glGenTextures(1, &texture1);
-  glBindTexture(GL_TEXTURE_2D, texture1);
-  // set the texture wrapping parameters
-  glTexParameteri(
-      GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,
-      GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  // set texture filtering parameters
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  // load image, create texture and generate mipmaps
-  int width, height, nrChannels;
-  stbi_set_flip_vertically_on_load(
-      true); // tell stb_image.h to flip loaded texture's on the y-axis.
-  // The FileSystem::getPath(...) is part of the GitHub repository so we can
-  // find files on any IDE/platform; replace it with your own image path.
-  unsigned char *data = stbi_load("../res/textures/Solid_red.png", &width,
-                                  &height, &nrChannels, 0);
-  if (data) {
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
-                 GL_UNSIGNED_BYTE, data);
-    glGenerateMipmap(GL_TEXTURE_2D);
-  } else {
-    std::cout << "Failed to load texture" << std::endl;
-  }
-  stbi_image_free(data);
-  // texture 2
-  // ---------
-  glGenTextures(1, &texture2);
-  glBindTexture(GL_TEXTURE_2D, texture2);
-  // set the texture wrapping parameters
-  glTexParameteri(
-      GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,
-      GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  // set texture filtering parameters
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  // load image, create texture and generate mipmaps
-  data = stbi_load("../res/textures/awesomeface.png", &width, &height,
-                   &nrChannels, 0);
-  if (data) {
-    // note that the awesomeface.png has transparency and thus an alpha channel,
-    // so make sure to tell OpenGL the data type is of GL_RGBA
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA,
-                 GL_UNSIGNED_BYTE, data);
-    glGenerateMipmap(GL_TEXTURE_2D);
-  } else {
-    std::cout << "Failed to load texture" << std::endl;
-  }
-  stbi_image_free(data);
+//  glGenVertexArrays(1, &VAO);
+//  glGenBuffers(1, &VBO);
+//  glBindVertexArray(VAO);
+//
+//  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+//  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+//
+//  // position attribute
+//  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), nullptr);
+//  glEnableVertexAttribArray(0);
+//  // texture coord attribute
+//  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float),
+//                        reinterpret_cast<void *>(3 * sizeof(float)));
+//  glEnableVertexAttribArray(1);
+//
+//  // load and create a texture
+//  // -------------------------
+//  unsigned int texture1, texture2;
+//  // texture 1
+//  // ---------
+//  glGenTextures(1, &texture1);
+//  glBindTexture(GL_TEXTURE_2D, texture1);
+//  // set the texture wrapping parameters
+//  glTexParameteri(
+//      GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,
+//      GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+//  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//  // set texture filtering parameters
+//  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//  // load image, create texture and generate mipmaps
+//  int width, height, nrChannels;
+//  stbi_set_flip_vertically_on_load(
+//      true); // tell stb_image.h to flip loaded texture's on the y-axis.
+//  // The FileSystem::getPath(...) is part of the GitHub repository so we can
+//  // find files on any IDE/platform; replace it with your own image path.
+//  unsigned char *data = stbi_load("../res/textures/Solid_red.png", &width,
+//                                  &height, &nrChannels, 0);
+//  if (data) {
+//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
+//                 GL_UNSIGNED_BYTE, data);
+//    glGenerateMipmap(GL_TEXTURE_2D);
+//  } else {
+//    std::cout << "Failed to load texture" << std::endl;
+//  }
+//  stbi_image_free(data);
+//  // texture 2
+//  // ---------
+//  glGenTextures(1, &texture2);
+//  glBindTexture(GL_TEXTURE_2D, texture2);
+//  // set the texture wrapping parameters
+//  glTexParameteri(
+//      GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,
+//      GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+//  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//  // set texture filtering parameters
+//  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//  // load image, create texture and generate mipmaps
+//  data = stbi_load("../res/textures/awesomeface.png", &width, &height,
+//                   &nrChannels, 0);
+//  if (data) {
+//    // note that the awesomeface.png has transparency and thus an alpha channel,
+//    // so make sure to tell OpenGL the data type is of GL_RGBA
+//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA,
+//                 GL_UNSIGNED_BYTE, data);
+//    glGenerateMipmap(GL_TEXTURE_2D);
+//  } else {
+//    std::cout << "Failed to load texture" << std::endl;
+//  }
+//  stbi_image_free(data);
 
   // tell opengl for each sampler to which texture unit it belongs to (only has
   // to be done once)
@@ -368,10 +368,10 @@ int main() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // bind textures on corresponding texture units
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture1);
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, texture2);
+//    glActiveTexture(GL_TEXTURE0);
+//    glBindTexture(GL_TEXTURE_2D, texture1);
+//    glActiveTexture(GL_TEXTURE1);
+//    glBindTexture(GL_TEXTURE_2D, texture2);
 
     // activate shader
     ourShader.use();
@@ -385,28 +385,34 @@ int main() {
     // camera/view transformation
     glm::mat4 view = camera.GetViewMatrix();
     ourShader.setMat4("view", view);
-
+//   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     // render boxes
     for(int i=0; i<26; i++){
 
             glBindVertexArray(VAOs[i]);
+        glBindBuffer(GL_ARRAY_BUFFER, VBOs[i]);
+//        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(v[i]->vertices), v[i]->vertices);
+//        glFlush();
+//        glFinish();
             Cube *c = rubik.cubes[i];
 //        for(auto c : rubik.cubes){
-//            glm::mat4 model = *c->model;
-//            model = glm::translate(model, *c->position);
+//            glm::mat4 model = c->model;
+//            model = glm::translate(model, c->position);
 //            //model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
 //            ourShader.setMat4("model", model);
-//            glDrawArrays(GL_TRIANGLES, i*36, i*36+36);
+//            glDrawArrays(GL_TRIANGLES, 0, 36);
 //
 //        }
-        glm::mat4 model = *c->model;
-        model = glm::translate(model, *c->position);
+        glm::mat4 model = c->model;
+        model = glm::translate(model, c->position);
         //model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
         ourShader.setMat4("model", model);
-        glDrawArrays(GL_TRIANGLES, i*36*0, 0*i*36+36);
 
-        glBindBuffer(GL_ARRAY_BUFFER, VBOs[i]);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(v[i]->vertices), v[i]->vertices);
+        glFlush();
+        glFinish();
 
     }
     //glBindVertexArray(VAO);
@@ -479,18 +485,18 @@ void processInput(GLFWwindow *window) {
     camera.ProcessKeyboard(LEFT, deltaTime*2);
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
     camera.ProcessKeyboard(RIGHT, deltaTime*2);
-  if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS || rubik.isConcreteRotating[F])
-      rubik.startRotation(deltaTime, (SIDE)F);
-    if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS || rubik.isConcreteRotating[B])
-        rubik.startRotation(deltaTime, (SIDE)B);
-    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS || rubik.isConcreteRotating[R])
-        rubik.startRotation(deltaTime, (SIDE)R);
-    if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS || rubik.isConcreteRotating[L])
-        rubik.startRotation(deltaTime, (SIDE)L);
-    if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS || rubik.isConcreteRotating[T])
-        rubik.startRotation(deltaTime, (SIDE)T);
-    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || rubik.isConcreteRotating[D])
-        rubik.startRotation(deltaTime, (SIDE)D);
+  if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS || rubik.isConcreteRotating[F] || rubik.plusOne[SIDE(F)])
+      rubik.startRotation(deltaTime*2, (SIDE)F);
+    if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS || rubik.isConcreteRotating[B] || rubik.plusOne[SIDE(B)])
+        rubik.startRotation(deltaTime*2, (SIDE)B);
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS || rubik.isConcreteRotating[R] || rubik.plusOne[SIDE(R)])
+        rubik.startRotation(deltaTime*2, (SIDE)R);
+    if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS || rubik.isConcreteRotating[L] || rubik.plusOne[SIDE(L)])
+        rubik.startRotation(deltaTime*2, (SIDE)L);
+    if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS || rubik.isConcreteRotating[T] || rubik.plusOne[SIDE(T)])
+        rubik.startRotation(deltaTime*2, (SIDE)T);
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || rubik.isConcreteRotating[D] || rubik.plusOne[SIDE(D)])
+        rubik.startRotation(deltaTime*2, (SIDE)D);
     if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
         rubik.rotateOwnAxis(deltaTime, glm::vec3(0.0f,1.0f,0.0f));
 

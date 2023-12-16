@@ -27,6 +27,7 @@ public:
     std::vector<Cube*> cubes;
     bool isRotating;
     bool isConcreteRotating[6];
+    bool plusOne[6];
 
     explicit Rubik(const std::vector<Cube*> &cubes);
 

@@ -11,7 +11,7 @@ bool Rotating::rotate(float d, glm::vec3 vec) {
 
     float velocity = 2.5f * d;
 
-    cube->model = new glm::mat4(glm::rotate(*cube->model, glm::radians(increment*velocity), vec));
+    cube->model = glm::rotate(cube->model, glm::radians(increment*velocity), vec);
 
 //    float velocity = 2.5f * d;
 //    if(increment * velocity + start > goal)
@@ -169,16 +169,20 @@ Rotating::Rotating(Cube *cube) : cube(cube) {
 bool Rotating::rotateXLEFT(float d) {
     float velocity = 2.5f * d;
     if(increment * velocity + start > goal){
-        cube->model = new glm::mat4(glm::rotate(*cube->model, glm::radians(goal - (start)), glm::vec3(1.0f, 0.0f, 0.0f)));
+//        glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(goal - (start)), glm::vec3(1.0f, 0.0f, 0.0f));
+//        cube->aggregate = cube->aggregate * rotate;
+        cube->model = glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(1.0f, 0.0f, 0.0f));
     }
     else{
-        cube->model = new glm::mat4(glm::rotate(*cube->model, glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f)));
+//        glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f));
+//        cube->aggregate = cube->aggregate * rotate;
+        cube->model = glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f));
     }
     start += increment*velocity;
 
     if(start > goal){
-        for (Cube* c:cube->rubik) {
-            if(c->pos == rot_left[cube->pos] && &c != &cube){
+        for (Cube* c : cube->rubik) {
+            if(c->pos == rot_left[cube->pos]){
                 std::array<std::array<float,3>,6> allColors = c->vertices->allColors();
                 cube->vertices->rotateX(
                         allColors[BACK_COLOR],
@@ -188,20 +192,28 @@ bool Rotating::rotateXLEFT(float d) {
                         allColors[LEFT_COLOR],
                         allColors[RIGHT_COLOR]
                         );
+                break;
             }
         }
-//        std::array<std::array<float,3>,6> allColors = cube->vertices->allColors();
-//        cube->vertices->rotateX(
-//                allColors[BACK_COLOR],
-//                allColors[FRONT_COLOR],
-//                allColors[TOP_COLOR],
-//                allColors[DOWN_COLOR],
-//                allColors[LEFT_COLOR],
-//                allColors[RIGHT_COLOR]
-//        );
-//        cube->pos = rot_left[cube->pos];
 
-        cube->model = new glm::mat4(1.0f);
+
+
+//        std::cout<<"Before reset-------------------------"<<std::endl;
+//        for(int i=0; i<4; i++){
+//            for(int j=0; j<4; j++){
+//                std::cout<<cube->model[i][j]<<" ";
+//            }
+//            std::cout<<"\n";
+//        }
+//        cube->model = cube->model * glm::inverse(cube->aggregate) ;
+        cube->model = glm::mat4(1.0f);
+//        std::cout<<"After reset-------------------------"<<std::endl;
+//        for(int i=0; i<4; i++){
+//            for(int j=0; j<4; j++){
+//                std::cout<<cube->model[i][j]<<" ";
+//            }
+//            std::cout<<"\n";
+//        }
 
         stop();
     }
@@ -212,17 +224,20 @@ bool Rotating::rotateXLEFT(float d) {
 bool Rotating::rotateXRIGHT(float d) {
     float velocity = 2.5f * d;
     if(increment * velocity + start > goal){
-        cube->model = new glm::mat4(glm::rotate(*cube->model, glm::radians(goal - (start)), glm::vec3(1.0f, 0.0f, 0.0f)));
+        cube->aggregate = glm::rotate(glm::mat4(1.0f), glm::radians(goal - start), glm::vec3(1.0f, 0.0f, 0.0f)) * cube->aggregate;
+
+        cube->model = glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(1.0f, 0.0f, 0.0f));
     }
     else{
-        cube->model = new glm::mat4(glm::rotate(*cube->model, glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f)));
+        cube->aggregate = glm::rotate(glm::mat4(1.0f), glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f)) * cube->aggregate;
+        cube->model = (glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f)));
     }
 
     start += increment*velocity;
 
     if(start > goal){
         for (Cube* c:cube->rubik) {
-            if(c->pos == rot_right[cube->pos] && &c != &cube){
+            if(c->pos == rot_right[cube->pos]){
                 std::array<std::array<float,3>,6> allColors = c->vertices->allColors();
                 cube->vertices->rotateX(
                         allColors[BACK_COLOR],
@@ -232,21 +247,11 @@ bool Rotating::rotateXRIGHT(float d) {
                         allColors[LEFT_COLOR],
                         allColors[RIGHT_COLOR]
                 );
+                break;
             }
         }
-//        std::array<std::array<float,3>,6> allColors = cube->vertices->allColors();
-//        cube->vertices->rotateX(
-//                allColors[BACK_COLOR],
-//                allColors[FRONT_COLOR],
-//                allColors[TOP_COLOR],
-//                allColors[DOWN_COLOR],
-//                allColors[LEFT_COLOR],
-//                allColors[RIGHT_COLOR]
-//        );
-//        cube->pos = rot_right[cube->pos];
 
-        cube->model = new glm::mat4(1.0f);
-
+        cube->model = glm::mat4(1.0f);
         stop();
     }
 
@@ -256,17 +261,19 @@ bool Rotating::rotateXRIGHT(float d) {
 bool Rotating::rotateYTOP(float d) {
     float velocity = 2.5f * d;
     if(increment * velocity + start > goal){
-        cube->model = new glm::mat4(glm::rotate(*cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 1.0f, 0.0f)));
+        cube->model = (glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 1.0f, 0.0f)));
     }
     else{
-        cube->model = new glm::mat4(glm::rotate(*cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 1.0f, 0.0f)));
+        cube->model = (glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 1.0f, 0.0f)));
     }
     start += increment*velocity;
 
     if(start > goal){
         for (Cube* c:cube->rubik) {
-            if(c->pos == rot_top[cube->pos] && &c != &cube){
+            if(c->pos == rot_top[cube->pos]){
+
                 std::array<std::array<float,3>,6> allColors = c->vertices->allColors();
+
                 cube->vertices->rotateY(
                         allColors[BACK_COLOR],
                         allColors[FRONT_COLOR],
@@ -275,21 +282,13 @@ bool Rotating::rotateYTOP(float d) {
                         allColors[LEFT_COLOR],
                         allColors[RIGHT_COLOR]
                 );
+
+
+                break;
             }
         }
-//        std::array<std::array<float,3>,6> allColors = cube->vertices->allColors();
-//        cube->vertices->rotateY(
-//                allColors[BACK_COLOR],
-//                allColors[FRONT_COLOR],
-//                allColors[TOP_COLOR],
-//                allColors[DOWN_COLOR],
-//                allColors[LEFT_COLOR],
-//                allColors[RIGHT_COLOR]
-//        );
 
-//        cube->pos = rot_top[cube->pos];
-
-        cube->model = new glm::mat4(1.0f);
+        cube->model = glm::mat4(1.0f);
 
         stop();
     }
@@ -300,16 +299,16 @@ bool Rotating::rotateYTOP(float d) {
 bool Rotating::rotateYDOWN(float d) {
     float velocity = 2.5f * d;
     if(increment * velocity + start > goal){
-        cube->model = new glm::mat4(glm::rotate(*cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 1.0f, 0.0f)));
+        cube->model = (glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 1.0f, 0.0f)));
     }
     else{
-        cube->model = new glm::mat4(glm::rotate(*cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 1.0f, 0.0f)));
+        cube->model =(glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 1.0f, 0.0f)));
     }
     start += increment*velocity;
 
     if(start > goal){
         for (Cube* c:cube->rubik) {
-            if(c->pos == rot_down[cube->pos] && &c != &cube){
+            if(c->pos == rot_down[cube->pos]){
                 std::array<std::array<float,3>,6> allColors = c->vertices->allColors();
                 cube->vertices->rotateY(
                         allColors[BACK_COLOR],
@@ -319,22 +318,11 @@ bool Rotating::rotateYDOWN(float d) {
                         allColors[LEFT_COLOR],
                         allColors[RIGHT_COLOR]
                 );
+                break;
             }
         }
-//        std::array<std::array<float,3>,6> allColors = cube->vertices->allColors();
-//        cube->vertices->rotateY(
-//                allColors[BACK_COLOR],
-//                allColors[FRONT_COLOR],
-//                allColors[TOP_COLOR],
-//                allColors[DOWN_COLOR],
-//                allColors[LEFT_COLOR],
-//                allColors[RIGHT_COLOR]
-//        );
 
-//        cube->pos = rot_down[cube->pos];
-
-        cube->model = new glm::mat4(1.0f);
-
+        cube->model = glm::mat4(1.0f);
         stop();
     }
 
@@ -344,17 +332,19 @@ bool Rotating::rotateYDOWN(float d) {
 bool Rotating::rotateZFRONT(float d) {
     float velocity = 2.5f * d;
     if(increment * velocity + start > goal){
-        cube->model = new glm::mat4(glm::rotate(*cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 0.0f, 1.0f)));
+        cube->model =  (glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 0.0f, 1.0f)));
     }
     else{
-        cube->model = new glm::mat4(glm::rotate(*cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 0.0f, 1.0f)));
+        cube->model = (glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 0.0f, 1.0f)));
     }
     start += increment*velocity;
 
     if(start > goal){
         for (Cube* c:cube->rubik) {
-            if(c->pos == rot_front[cube->pos] && &c != &cube){
+            if(c->pos == rot_front[cube->pos]){
+
                 std::array<std::array<float,3>,6> allColors = c->vertices->allColors();
+
                 cube->vertices->rotateZ(
                         allColors[BACK_COLOR],
                         allColors[FRONT_COLOR],
@@ -363,20 +353,12 @@ bool Rotating::rotateZFRONT(float d) {
                         allColors[LEFT_COLOR],
                         allColors[RIGHT_COLOR]
                 );
+
+                break;
             }
         }
-//        std::array<std::array<float,3>,6> allColors = cube->vertices->allColors();
-//        cube->vertices->rotateZ(
-//                allColors[BACK_COLOR],
-//                allColors[FRONT_COLOR],
-//                allColors[TOP_COLOR],
-//                allColors[DOWN_COLOR],
-//                allColors[LEFT_COLOR],
-//                allColors[RIGHT_COLOR]
-//        );
-//        cube->pos = rot_front[cube->pos];
 
-        cube->model = new glm::mat4(1.0f);
+        cube->model =  glm::mat4(1.0f);
 
         stop();
     }
@@ -387,16 +369,16 @@ bool Rotating::rotateZFRONT(float d) {
 bool Rotating::rotateZBACK(float d) {
     float velocity = 2.5f * d;
     if(increment * velocity + start > goal){
-        cube->model = new glm::mat4(glm::rotate(*cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 0.0f, 1.0f)));
+        cube->model = (glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 0.0f, 1.0f)));
     }
     else{
-        cube->model = new glm::mat4(glm::rotate(*cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 0.0f, 1.0f)));
+        cube->model = (glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 0.0f, 1.0f)));
     }
     start += increment*velocity;
 
     if(start > goal){
         for (Cube* c:cube->rubik) {
-            if(c->pos == rot_back[cube->pos] && &c != &cube){
+            if(c->pos == rot_back[cube->pos]){
                 std::array<std::array<float,3>,6> allColors = c->vertices->allColors();
                 cube->vertices->rotateZ(
                         allColors[BACK_COLOR],
@@ -406,21 +388,12 @@ bool Rotating::rotateZBACK(float d) {
                         allColors[LEFT_COLOR],
                         allColors[RIGHT_COLOR]
                 );
+                break;
             }
         }
-//        std::array<std::array<float,3>,6> allColors = cube->vertices->allColors();
-//        cube->vertices->rotateZ(
-//                allColors[BACK_COLOR],
-//                allColors[FRONT_COLOR],
-//                allColors[TOP_COLOR],
-//                allColors[DOWN_COLOR],
-//                allColors[LEFT_COLOR],
-//                allColors[RIGHT_COLOR]
-//        );
 
-//        cube->pos = rot_back[cube->pos];
 
-        cube->model = new glm::mat4(1.0f);
+        cube->model =  glm::mat4(1.0f);
 
         stop();
     }

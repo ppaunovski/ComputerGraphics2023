@@ -14,8 +14,8 @@
 
 class Cube {
 public:
-    Cube(glm::mat4 *model, glm::vec3 *position, int pos);
-    Cube(glm::mat4 *model, glm::vec3 *position, int pos, Vertices *v);
+    Cube(glm::mat4 model, glm::vec3 position, int pos);
+    Cube(glm::mat4 model, glm::vec3 position, int pos, Vertices *v);
 
     Cube(glm::mat4 *model, glm::vec3 *position);
 
@@ -31,8 +31,11 @@ public:
     //Rubik *rubik;
     std::vector<Cube*> rubik;
     Vertices *vertices;
-    glm::mat4 *model;
-    glm::vec3 *position;
+    glm::mat4 model;
+    std::vector<glm::mat4> transformations;
+    glm::mat4 aggregate;
+    glm::mat4 inverseAggregate;
+    glm::vec3 position;
     CubeState *is_Rotating;
     CubeState *is_Translating;
     CubeState *is_Still;
@@ -41,7 +44,6 @@ public:
 public:
     Cube();
     Cube(glm::mat4 model, glm::vec3 position);
-    Cube(glm::mat4 model, glm::vec3 position, int pos);
 
     bool rotate(float d, glm::vec3 vec);
 

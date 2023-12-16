@@ -13,8 +13,10 @@ Rubik::Rubik(int j){
     this->cubes = std::vector<Cube*>();
     for(int i=0; i<6; i++){
         isConcreteRotating[i] = false;
+        plusOne[i] = false;
     }
     isRotating = false;
+
 
 }
 Rubik::Rubik() {
@@ -43,16 +45,15 @@ Rubik::Rubik() {
             glm::vec3(-1.0f, -1.0f, 1.0f), glm::vec3(0.0f, -1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f),
     };
     for(int i=0; i<26; i++){
-        Cube *cube = new Cube(new glm::mat4 (1.0f), new glm::vec3(pos[i]), i);
+        Cube *cube = new Cube( glm::mat4 (1.0f),  glm::vec3(pos[i]), i);
         cubes.push_back(cube);
     }
-    for(auto c : cubes){
-        std::cout << "Cube pos: " << c->pos << " position coord: " << c->position->x << " " << c->position->y << " " << c->position->z << std::endl;
-    }
-    std::cout<<"-------------------------------------------------"<<std::endl;
+
 }
 
 void Rubik::startRotation(float deltaTime, SIDE side) {
+
+    if(!plusOne[side]){
 
     switch(side){
 
@@ -66,49 +67,60 @@ void Rubik::startRotation(float deltaTime, SIDE side) {
             break;
         case D:
             for(auto c : cubes){
-                if(c->is_down())
+                if(c->is_down()){
                     isRotating = c->rotateYDOWN(deltaTime);
+                }
             }
             break;
         case L:
             for(auto c : cubes){
-                if(c->is_left())
+                if(c->is_left()){
                     isRotating = c->rotateXLEFT(deltaTime);
+                }
             }
             break;
         case R:
             for(auto c : cubes){
-                if(c->is_right())
+                if(c->is_right()){
                     isRotating = c->rotateXRIGHT(deltaTime);
+                }
             }
             break;
         case F:
             for(auto c : cubes){
-                if(c->is_front())
+                if(c->is_front()){
                     isRotating = c->rotateZFRONT(deltaTime);
+                }
             }
             break;
         case B:
             for(auto c : cubes){
-                if(c->is_back())
+                if(c->is_back()){
                     isRotating = c->rotateZBACK(deltaTime);
+                }
             }
             break;
     }
 
     isConcreteRotating[side] = isRotating;
-
-    if(!isConcreteRotating[side]){
-        for(auto c : cubes){
-            c->vertices->hasChanged = false;
-        }
+    plusOne[side] = !isRotating;
     }
+    if(plusOne[side])
+        plusOne[side] = false;
 
+
+    if(!isRotating){
+        for(auto c : cubes){
+            c->vertices->setOldColors();
+        }
+
+    std::cout<<"ITERATION IS DONE -----------------------------------------"<<std::endl;
+    }
 }
 
 void Rubik::addCube(int index, Vertices *v, glm::vec3 pos) {
     glm::mat4 difMat = glm::mat4(1.0f);
-    Cube *cube = new Cube(new glm::mat4 (1.0f), new glm::vec3 (pos), index, v);
+    Cube *cube = new Cube( glm::mat4 (1.0f),  glm::vec3 (pos), index, v);
     cubes.push_back(cube);
 
     if(cubes.size() == 26){

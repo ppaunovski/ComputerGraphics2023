@@ -6,6 +6,8 @@
 #include <map>
 #include "Rotating.hpp"
 
+const bool animation = true;
+
 bool Rotating::rotate(float d, glm::vec3 vec) {
     //std::cout<<"Already rotating"<<std::endl;
 
@@ -168,15 +170,17 @@ Rotating::Rotating(Cube *cube) : cube(cube) {
 
 bool Rotating::rotateXLEFT(float d) {
     float velocity = 2.5f * d;
-    if(increment * velocity + start > goal){
+    if(animation){
+        if(increment * velocity + start > goal){
 //        glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(goal - (start)), glm::vec3(1.0f, 0.0f, 0.0f));
 //        cube->aggregate = cube->aggregate * rotate;
-        cube->model = glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(1.0f, 0.0f, 0.0f));
-    }
-    else{
+            cube->model = glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(1.0f, 0.0f, 0.0f));
+        }
+        else{
 //        glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f));
 //        cube->aggregate = cube->aggregate * rotate;
-        cube->model = glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f));
+            cube->model = glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f));
+        }
     }
     start += increment*velocity;
 
@@ -223,14 +227,16 @@ bool Rotating::rotateXLEFT(float d) {
 
 bool Rotating::rotateXRIGHT(float d) {
     float velocity = 2.5f * d;
-    if(increment * velocity + start > goal){
-        cube->aggregate = glm::rotate(glm::mat4(1.0f), glm::radians(goal - start), glm::vec3(1.0f, 0.0f, 0.0f)) * cube->aggregate;
+    if(animation){
+        if(increment * velocity + start > goal){
+            cube->aggregate = glm::rotate(glm::mat4(1.0f), glm::radians(goal - start), glm::vec3(1.0f, 0.0f, 0.0f)) * cube->aggregate;
 
-        cube->model = glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(1.0f, 0.0f, 0.0f));
-    }
-    else{
-        cube->aggregate = glm::rotate(glm::mat4(1.0f), glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f)) * cube->aggregate;
-        cube->model = (glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f)));
+            cube->model = glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(1.0f, 0.0f, 0.0f));
+        }
+        else{
+            cube->aggregate = glm::rotate(glm::mat4(1.0f), glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f)) * cube->aggregate;
+            cube->model = (glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f)));
+        }
     }
 
     start += increment*velocity;
@@ -260,11 +266,13 @@ bool Rotating::rotateXRIGHT(float d) {
 
 bool Rotating::rotateYTOP(float d) {
     float velocity = 2.5f * d;
-    if(increment * velocity + start > goal){
-        cube->model = (glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 1.0f, 0.0f)));
-    }
-    else{
-        cube->model = (glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 1.0f, 0.0f)));
+    if(animation){
+        if(increment * velocity + start > goal){
+            cube->model = (glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 1.0f, 0.0f)));
+        }
+        else{
+            cube->model = (glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 1.0f, 0.0f)));
+        }
     }
     start += increment*velocity;
 
@@ -298,11 +306,13 @@ bool Rotating::rotateYTOP(float d) {
 
 bool Rotating::rotateYDOWN(float d) {
     float velocity = 2.5f * d;
-    if(increment * velocity + start > goal){
-        cube->model = (glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 1.0f, 0.0f)));
-    }
-    else{
-        cube->model =(glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 1.0f, 0.0f)));
+    if(animation){
+        if(increment * velocity + start > goal){
+            cube->model = (glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 1.0f, 0.0f)));
+        }
+        else{
+            cube->model =(glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 1.0f, 0.0f)));
+        }
     }
     start += increment*velocity;
 
@@ -331,11 +341,13 @@ bool Rotating::rotateYDOWN(float d) {
 
 bool Rotating::rotateZFRONT(float d) {
     float velocity = 2.5f * d;
-    if(increment * velocity + start > goal){
-        cube->model =  (glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 0.0f, 1.0f)));
-    }
-    else{
-        cube->model = (glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 0.0f, 1.0f)));
+    if(animation){
+        if(increment * velocity + start > goal){
+            cube->model =  (glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 0.0f, 1.0f)));
+        }
+        else{
+            cube->model = (glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 0.0f, 1.0f)));
+        }
     }
     start += increment*velocity;
 
@@ -368,11 +380,13 @@ bool Rotating::rotateZFRONT(float d) {
 
 bool Rotating::rotateZBACK(float d) {
     float velocity = 2.5f * d;
-    if(increment * velocity + start > goal){
-        cube->model = (glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 0.0f, 1.0f)));
-    }
-    else{
-        cube->model = (glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 0.0f, 1.0f)));
+    if(animation){
+        if(increment * velocity + start > goal){
+            cube->model = (glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(0.0f, 0.0f, 1.0f)));
+        }
+        else{
+            cube->model = (glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(0.0f, 0.0f, 1.0f)));
+        }
     }
     start += increment*velocity;
 

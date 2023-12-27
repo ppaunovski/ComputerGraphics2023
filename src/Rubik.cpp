@@ -108,10 +108,29 @@ void Rubik::startRotation(float deltaTime, SIDE side) {
     if(plusOne[side])
         plusOne[side] = false;
 
+    glm::vec3 pos[26] = {
+            //TOP
+            glm::vec3(-1.0f, 1.0f, -1.0f), glm::vec3(0.0f, 1.0f, -1.0f), glm::vec3(1.0f, 1.0f, -1.0f),
+            glm::vec3(-1.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 0.0f),
+            glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f),
 
+            //MID
+            glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(1.0f, 0.0f, -1.0f),
+            glm::vec3(-1.0f, 0.0f, 0.0f),
+            //glm::vec3(0.0f, 0.0f, 0.0f), // THIS ONE IS USELESS
+            glm::vec3(1.0f, 0.0f, 0.0f),
+            glm::vec3(-1.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 1.0f),
+
+            //BOT
+            glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(0.0f, -1.0f, -1.0f), glm::vec3(1.0f, -1.0f, -1.0f),
+            glm::vec3(-1.0f, -1.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(1.0f, -1.0f, 0.0f),
+            glm::vec3(-1.0f, -1.0f, 1.0f), glm::vec3(0.0f, -1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f),
+    };
     if(!isRotating){
+        int i=0;
         for(auto c : cubes){
             c->vertices->setOldColors();
+            c->position = pos[i++];
         }
 
     std::cout<<"ITERATION IS DONE -----------------------------------------"<<std::endl;

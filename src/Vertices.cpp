@@ -138,6 +138,79 @@ void Vertices::rotateX(std::array<float, 3> backColor,
 
 }
 
+void Vertices::rotateXPrime(std::array<float, 3> backColor,
+                       std::array<float, 3> frontColor,
+                       std::array<float, 3> topColor,
+                       std::array<float, 3> downColor,
+                       std::array<float, 3> leftColor,
+                       std::array<float, 3> rightColor) {
+
+//   if(!isUsed){
+//       hasChanged = true;
+//   }
+//    hasChanged = true;
+//    setOldColors();
+
+    for(int j=0; j<6; j++){
+
+        for (int i = j*6; i < 6 + j*6; i++) {
+            //        front colors = down colors
+            //        back colors = top colors
+            //        left is the same
+            //        right is the same
+            //        top colors = front colors
+            //        down colors = back colors
+            switch (j) {
+                case 0:
+                    //back face
+                    vertices[i*6 + 3] = topColor[0];
+                    vertices[i*6 + 4] = topColor[1];
+                    vertices[i*6 + 5] = topColor[2];
+                    break;
+                case 1:
+                    //front face
+                    vertices[i*6 + 3] = downColor[0];
+                    vertices[i*6 + 4] = downColor[1];
+                    vertices[i*6 + 5] = downColor[2];
+                    break;
+                case 2:
+                    //right face
+                    vertices[i*6 + 3] = rightColor[0];
+                    vertices[i*6 + 4] = rightColor[1];
+                    vertices[i*6 + 5] = rightColor[2];
+                    break;
+                case 3:
+                    //left face
+                    vertices[i*6 + 3] = leftColor[0];
+                    vertices[i*6 + 4] = leftColor[1];
+                    vertices[i*6 + 5] = leftColor[2];
+                    break;
+                case 4:
+                    //top face
+                    vertices[i*6 + 3] = frontColor[0];
+                    vertices[i*6 + 4] = frontColor[1];
+                    vertices[i*6 + 5] = frontColor[2];
+                    break;
+                case 5:
+                    //down face
+                    vertices[i*6 + 3] = backColor[0];
+                    vertices[i*6 + 4] = backColor[1];
+                    vertices[i*6 + 5] = backColor[2];
+                    break;
+            }
+        }
+
+    }
+
+//    for(int i=0; i<36; i++){
+//        for(int j=0; j<6; j++){
+//            std::cout << vertices[i*6 + j] << " ";
+//        }
+//        std::cout<<std::endl;
+//    }
+
+}
+
 void Vertices::rotateY(std::array<float, 3> backColor,
                        std::array<float, 3> frontColor,
                        std::array<float, 3> topColor,
@@ -181,6 +254,68 @@ void Vertices::rotateY(std::array<float, 3> backColor,
                     vertices[i*6 + 3] = backColor[0];
                     vertices[i*6 + 4] = backColor[1];
                     vertices[i*6 + 5] = backColor[2];
+                    break;
+                case 4:
+                    //top face
+                    vertices[i*6 + 3] = topColor[0];
+                    vertices[i*6 + 4] = topColor[1];
+                    vertices[i*6 + 5] = topColor[2];
+                    break;
+                case 5:
+                    //down face
+                    vertices[i*6 + 3] = downColor[0];
+                    vertices[i*6 + 4] = downColor[1];
+                    vertices[i*6 + 5] = downColor[2];
+                    break;
+            }
+        }
+    }
+}
+
+
+void Vertices::rotateYPrime(std::array<float, 3> backColor,
+                       std::array<float, 3> frontColor,
+                       std::array<float, 3> topColor,
+                       std::array<float, 3> downColor,
+                       std::array<float, 3> leftColor,
+                       std::array<float, 3> rightColor) {
+
+//    hasChanged = true;
+//    setOldColors();
+
+    for(int j=0; j<6; j++){
+
+        for (int i = j*6; i < 6 + j*6; i++) {
+//            top color is the same
+//            down color is the same
+//            left color = front color
+//            front color = right color
+//            right color = back color
+//            back color = left color
+            switch (j) {
+                case 0:
+                    //back face
+                    vertices[i*6 + 3] = leftColor[0];
+                    vertices[i*6 + 4] = leftColor[1];
+                    vertices[i*6 + 5] = leftColor[2];
+                    break;
+                case 1:
+                    //front face
+                    vertices[i*6 + 3] = rightColor[0];
+                    vertices[i*6 + 4] = rightColor[1];
+                    vertices[i*6 + 5] = rightColor[2];
+                    break;
+                case 2:
+                    //right face
+                    vertices[i*6 + 3] = backColor[0];
+                    vertices[i*6 + 4] = backColor[1];
+                    vertices[i*6 + 5] = backColor[2];
+                    break;
+                case 3:
+                    //left face
+                    vertices[i*6 + 3] = frontColor[0];
+                    vertices[i*6 + 4] = frontColor[1];
+                    vertices[i*6 + 5] = frontColor[2];
                     break;
                 case 4:
                     //top face
@@ -254,6 +389,68 @@ void Vertices::rotateZ(std::array<float, 3> backColor,
                     vertices[i*6 + 3] = leftColor[0];
                     vertices[i*6 + 4] = leftColor[1];
                     vertices[i*6 + 5] = leftColor[2];
+                    break;
+            }
+        }
+    }
+
+}
+
+void Vertices::rotateZPrime(std::array<float, 3> backColor,
+                       std::array<float, 3> frontColor,
+                       std::array<float, 3> topColor,
+                       std::array<float, 3> downColor,
+                       std::array<float, 3> leftColor,
+                       std::array<float, 3> rightColor) {
+
+//    hasChanged = true;
+//    setOldColors();
+
+    for(int j=0; j<6; j++){
+
+        for (int i = j*6; i < 6 + j*6; i++) {
+//            top color = left color
+//            down color = right color
+//            left color = down color
+//            front color is the same
+//            right color = top color
+//            back color is the same
+            switch (j) {
+                case 0:
+                    //back face
+                    vertices[i*6 + 3] = backColor[0];
+                    vertices[i*6 + 4] = backColor[1];
+                    vertices[i*6 + 5] = backColor[2];
+                    break;
+                case 1:
+                    //front face
+                    vertices[i*6 + 3] = frontColor[0];
+                    vertices[i*6 + 4] = frontColor[1];
+                    vertices[i*6 + 5] = frontColor[2];
+                    break;
+                case 2:
+                    //right face
+                    vertices[i*6 + 3] = topColor[0];
+                    vertices[i*6 + 4] = topColor[1];
+                    vertices[i*6 + 5] = topColor[2];
+                    break;
+                case 3:
+                    //left face
+                    vertices[i*6 + 3] = downColor[0];
+                    vertices[i*6 + 4] = downColor[1];
+                    vertices[i*6 + 5] = downColor[2];
+                    break;
+                case 4:
+                    //top face
+                    vertices[i*6 + 3] = leftColor[0];
+                    vertices[i*6 + 4] = leftColor[1];
+                    vertices[i*6 + 5] = leftColor[2];
+                    break;
+                case 5:
+                    //down face
+                    vertices[i*6 + 3] = rightColor[0];
+                    vertices[i*6 + 4] = rightColor[1];
+                    vertices[i*6 + 5] = rightColor[2];
                     break;
             }
         }

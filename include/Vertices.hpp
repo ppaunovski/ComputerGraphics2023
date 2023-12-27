@@ -34,13 +34,31 @@ public:
                  std::array<float, 3> downColor,
                  std::array<float, 3> leftColor,
                  std::array<float, 3> rightColor);
+    void rotateXPrime(std::array<float, 3> backColor,
+                 std::array<float, 3> frontColor,
+                 std::array<float, 3> topColor,
+                 std::array<float, 3> downColor,
+                 std::array<float, 3> leftColor,
+                 std::array<float, 3> rightColor);
     void rotateY(std::array<float, 3> backColor,
                  std::array<float, 3> frontColor,
                  std::array<float, 3> topColor,
                  std::array<float, 3> downColor,
                  std::array<float, 3> leftColor,
                  std::array<float, 3> rightColor);
+    void rotateYPrime(std::array<float, 3> backColor,
+                 std::array<float, 3> frontColor,
+                 std::array<float, 3> topColor,
+                 std::array<float, 3> downColor,
+                 std::array<float, 3> leftColor,
+                 std::array<float, 3> rightColor);
     void rotateZ(std::array<float, 3> backColor,
+                 std::array<float, 3> frontColor,
+                 std::array<float, 3> topColor,
+                 std::array<float, 3> downColor,
+                 std::array<float, 3> leftColor,
+                 std::array<float, 3> rightColor);
+    void rotateZPrime(std::array<float, 3> backColor,
                  std::array<float, 3> frontColor,
                  std::array<float, 3> topColor,
                  std::array<float, 3> downColor,

@@ -392,8 +392,8 @@ int main() {
             glBindVertexArray(VAOs[i]);
         glBindBuffer(GL_ARRAY_BUFFER, VBOs[i]);
 //        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(v[i]->vertices), v[i]->vertices);
-//        glFlush();
-//        glFinish();
+        glFlush();
+        glFinish();
             Cube *c = rubik.cubes[i];
 //        for(auto c : rubik.cubes){
 //            glm::mat4 model = c->model;

@@ -58,8 +58,6 @@ bool Cube::rotate(float d, glm::vec3 vec) {
 
 
     return actualSate->rotate(d, vec);
-    //std::cout<<"rotate in Cube called"<<std::endl;
-    return isRotating;
 
 }
 
@@ -67,7 +65,6 @@ bool Cube::rotateYTOP(float d) {
 
 
     isRotating = actualSate->rotateYTOP(d);
-    //std::cout<<"rotateY in Cube called"<<std::endl;
     return isRotating;
 
 }
@@ -76,7 +73,6 @@ bool Cube::rotateYDOWN(float d) {
 
 
     isRotating = actualSate->rotateYDOWN(d);
-    //std::cout<<"rotateY in Cube called"<<std::endl;
     return isRotating;
 
 }
@@ -85,7 +81,6 @@ bool Cube::rotateXLEFT(float d) {
 
 
     isRotating = actualSate->rotateXLEFT(d);
-    //std::cout<<"rotateX in Cube called"<<std::endl;
     return isRotating;
 
 }
@@ -94,7 +89,6 @@ bool Cube::rotateXRIGHT(float d) {
 
 
     isRotating = actualSate->rotateXRIGHT(d);
-   // std::cout<<"rotateX in Cube called"<<std::endl;
     return isRotating;
 
 }
@@ -103,7 +97,6 @@ bool Cube::rotateZFRONT(float d) {
 
 
     isRotating = actualSate->rotateZFRONT(d);
-    //std::cout<<"rotateZ in Cube called"<<std::endl;
     return isRotating;
 
 }
@@ -112,7 +105,6 @@ bool Cube::rotateZBACK(float d) {
 
 
     isRotating = actualSate->rotateZBACK(d);
-    //std::cout<<"rotateZ in Cube called"<<std::endl;
     return isRotating;
 
 }
@@ -121,11 +113,6 @@ bool Cube::rotateZBACK(float d) {
 
 bool Cube::is_top(){
 
-//    bool is = false;
-//    for(int i : top){
-//        if(i == pos)
-//            return true;
-//    }
     if(position.y == 1.0f)
         return true;
     return false;
@@ -134,11 +121,6 @@ bool Cube::is_top(){
 
 bool Cube::is_down(){
 
-//    bool is = false;
-//    for(int i : down){
-//        if(i == pos)
-//            return true;
-//    }
     if(position.y == -1.0f)
         return true;
     return false;
@@ -147,11 +129,6 @@ bool Cube::is_down(){
 
 bool Cube::is_left(){
 
-//    bool is = false;
-//    for(int i : left){
-//        if(i == pos)
-//            return true;
-//    }
     if(position.x == -1.0f)
         return true;
     return false;
@@ -160,11 +137,6 @@ bool Cube::is_left(){
 
 bool Cube::is_right(){
 
-//    bool is = false;
-//    for(int i : right){
-//        if(i == pos)
-//            return true;
-//    }
     if(position.x == 1.0f)
         return true;
     return false;
@@ -173,11 +145,6 @@ bool Cube::is_right(){
 
 bool Cube::is_front(){
 
-//    bool is = false;
-//    for(int i : front){
-//        if(i == pos)
-//            return true;
-//    }
     if(position.z == 1.0f)
         return true;
     return false;
@@ -186,11 +153,6 @@ bool Cube::is_front(){
 
 bool Cube::is_back(){
 
-//    bool is = false;
-//    for(int i : back){
-//        if(i == pos)
-//            return true;
-//    }
     if(position.z == -1.0f)
         return true;
     return false;

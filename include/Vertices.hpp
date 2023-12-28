@@ -74,6 +74,12 @@ public:
     std::array<std::array<float, 3>, 6> allColors();
 
     void setOldColors();
+
+    void rotate(bool prime, char axis);
+
+    void rotate(bool prime, char axis, std::array<float, 3> backColor, std::array<float, 3> frontColor,
+                std::array<float, 3> topColor, std::array<float, 3> downColor, std::array<float, 3> leftColor,
+                std::array<float, 3> rightColor);
 };
 
 #endif //OPENGLPRJ_VERTICES_HPP

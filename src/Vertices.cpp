@@ -65,6 +65,29 @@ Vertices::Vertices(){
 
 }
 
+void Vertices::rotate(bool prime, char axis,
+                      std::array<float, 3> backColor,
+                      std::array<float, 3> frontColor,
+                      std::array<float, 3> topColor,
+                      std::array<float, 3> downColor,
+                      std::array<float, 3> leftColor,
+                      std::array<float, 3> rightColor){
+    switch (axis) {
+        case 'x':
+            if(prime) rotateXPrime(backColor, frontColor, topColor, downColor, leftColor, rightColor);
+            else rotateX(backColor, frontColor, topColor, downColor, leftColor, rightColor);
+            break;
+        case 'y':
+            if(prime) rotateYPrime(backColor, frontColor, topColor, downColor, leftColor, rightColor);
+            else rotateY(backColor, frontColor, topColor, downColor, leftColor, rightColor);
+            break;
+        case 'z':
+            if(prime) rotateZPrime(backColor, frontColor, topColor, downColor, leftColor, rightColor);
+            else rotateZ(backColor, frontColor, topColor, downColor, leftColor, rightColor);
+            break;
+    }
+}
+
 void Vertices::rotateX(std::array<float, 3> backColor,
                        std::array<float, 3> frontColor,
                        std::array<float, 3> topColor,

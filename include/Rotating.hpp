@@ -20,11 +20,17 @@ public:
     float decrement;
     bool isRotating;
     std::map<int, int> rot_left;
+    std::map<int, int> rot_left_prime;
     std::map<int, int> rot_right;
+    std::map<int, int> rot_right_prime;
     std::map<int, int> rot_top;
+    std::map<int, int> rot_top_prime;
     std::map<int, int> rot_down;
+    std::map<int, int> rot_down_prime;
     std::map<int, int> rot_front;
+    std::map<int, int> rot_front_prime;
     std::map<int, int> rot_back;
+    std::map<int, int> rot_back_prime;
 
     explicit Rotating(Cube *cube);
 
@@ -39,9 +45,16 @@ public:
     bool rotateZBACK(float d, bool prime) override;
 
     void translate() override;
+    void make_rotation(float velocity, bool prime, glm::vec3 axis);
 
     void stop() override;
 
+    void change_colors(std::map<int, int> map);
+    void change_colors_prime(std::map<int, int> map);
+
+    void change_colors_prime(std::map<int, int> map, bool prime, char axis);
+
+    void change_colors(std::map<int, int> map, bool prime, char axis);
 };
 
 

@@ -33,6 +33,7 @@ public:
     std::vector<Cube*> cubes;
     bool isRotating;
     bool isConcreteRotating[12];
+    bool canConcreteRotating[12];
 //    bool plusOne[6];
 
     explicit Rubik(const std::vector<Cube*> &cubes);
@@ -44,6 +45,12 @@ public:
     void addCube(int index, Vertices *v, glm::vec3 pos);
 
     void rotateOwnAxis(float d, glm::vec3 vec);
+
+    void make_rotation(float deltaTime, SIDE side, bool prime);
+
+    void block(SIDE side);
+
+    void unblock();
 };
 
 

@@ -13,6 +13,7 @@ Rubik::Rubik(int j){
     this->cubes = std::vector<Cube*>();
     for(int i=0; i<12; i++){
         isConcreteRotating[i] = false;
+        canConcreteRotating[i] = true;
 //        plusOne[i] = false;
     }
     isRotating = false;
@@ -51,10 +52,7 @@ Rubik::Rubik() {
 
 }
 
-void Rubik::startRotation(float deltaTime, SIDE side, bool prime) {
-
-//    if(!plusOne[side]){
-
+void Rubik::make_rotation(float deltaTime, SIDE side, bool prime){
     switch(side){
 
         case T:
@@ -107,6 +105,78 @@ void Rubik::startRotation(float deltaTime, SIDE side, bool prime) {
             }
             break;
     }
+}
+
+void Rubik::block(SIDE side){
+    for(int i=0; i<12; i++)
+        if(side != i) canConcreteRotating[i] = false;
+}
+
+void Rubik::unblock(){
+    for(int i=0; i<12; i++)
+        canConcreteRotating[i] = true;
+}
+
+void Rubik::startRotation(float deltaTime, SIDE side, bool prime) {
+
+    if(canConcreteRotating[side]){
+        block(side);
+        this->make_rotation(deltaTime, side, prime);
+    }
+    else return;
+
+//    switch(side){
+//
+//        case T:
+//        case TP:
+//            for(auto c : cubes){
+//                if(c->is_top()){
+//                    isRotating = c->rotateYTOP(deltaTime, prime);
+//
+//                }
+//            }
+//            break;
+//        case D:
+//        case DP:
+//            for(auto c : cubes){
+//                if(c->is_down()){
+//                    isRotating = c->rotateYDOWN(deltaTime, prime);
+//                }
+//            }
+//            break;
+//        case L:
+//        case LP:
+//            for(auto c : cubes){
+//                if(c->is_left()){
+//                    isRotating = c->rotateXLEFT(deltaTime, prime);
+//                }
+//            }
+//            break;
+//        case R:
+//        case RP:
+//            for(auto c : cubes){
+//                if(c->is_right()){
+//                    isRotating = c->rotateXRIGHT(deltaTime, prime);
+//                }
+//            }
+//            break;
+//        case F:
+//        case FP:
+//            for(auto c : cubes){
+//                if(c->is_front()){
+//                    isRotating = c->rotateZFRONT(deltaTime, prime);
+//                }
+//            }
+//            break;
+//        case B:
+//        case BP:
+//            for(auto c : cubes){
+//                if(c->is_back()){
+//                    isRotating = c->rotateZBACK(deltaTime, prime);
+//                }
+//            }
+//            break;
+//    }
 
     isConcreteRotating[side] = isRotating;
 //    plusOne[side] = !isRotating;
@@ -138,8 +208,9 @@ void Rubik::startRotation(float deltaTime, SIDE side, bool prime) {
             c->vertices->setOldColors();
             c->position = pos[i++];
         }
+        this->unblock();
 
-    std::cout<<"ITERATION IS DONE -----------------------------------------"<<std::endl;
+        std::cout<<"ITERATION IS DONE -----------------------------------------"<<std::endl;
     }
 }
 

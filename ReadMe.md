@@ -1,3 +1,49 @@
+# Rubik's cube
+
+## Controls
+
+### Camera movement
+
+Move left - press A key on keyboard
+
+Move right - press D key on keyboard
+
+Move up - press W key on keyboard
+
+Move down - press S key on keyboard
+
+
+### Rotations of the cube
+
+- Regular rotations:
+
+Left face rotation - press L key on keyboard
+
+Right face rotation - press R key on keyboard
+
+Front face rotation - press F key on keyboard
+
+Back face rotation - press B key on keyboard
+
+Top face rotation - press T key on keyboard
+
+Down face rotation - press SPACE key on keyboard
+
+- Prime rotations:
+
+Left face rotation - press LEFT_SHIFT + L key on keyboard
+
+Right face rotation - press LEFT_SHIFT + R key on keyboard
+
+Front face rotation - press LEFT_SHIFT + F key on keyboard
+
+Back face rotation - press LEFT_SHIFT + B key on keyboard
+
+Top face rotation - press LEFT_SHIFT + T key on keyboard
+
+Down face rotation - press LEFT_SHIFT + SPACE key on keyboard
+
+
 # OpenGLPrj
 
 Project for Basics of Computer Graphics course at [FCSE](https://finki.ukim.mk/). It is a striped down version of [Polythonic/Glitter](https://github.com/Polytonic/Glitter) project that includes:

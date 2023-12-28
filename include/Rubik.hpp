@@ -16,7 +16,13 @@ enum SIDE{
     L,
     R,
     F,
-    B
+    B,
+    TP,
+    DP,
+    LP,
+    RP,
+    FP,
+    BP
 };
 
 class Rubik {
@@ -26,15 +32,15 @@ public:
 
     std::vector<Cube*> cubes;
     bool isRotating;
-    bool isConcreteRotating[6];
-    bool plusOne[6];
+    bool isConcreteRotating[12];
+//    bool plusOne[6];
 
     explicit Rubik(const std::vector<Cube*> &cubes);
 
     Rubik();
 
 
-    void startRotation(float deltaTime, SIDE side);
+    void startRotation(float deltaTime, SIDE side, bool prime);
     void addCube(int index, Vertices *v, glm::vec3 pos);
 
     void rotateOwnAxis(float d, glm::vec3 vec);

@@ -11,9 +11,9 @@ Rubik::Rubik(const std::vector<Cube*> &cubes) : cubes(cubes) {
 }
 Rubik::Rubik(int j){
     this->cubes = std::vector<Cube*>();
-    for(int i=0; i<6; i++){
+    for(int i=0; i<12; i++){
         isConcreteRotating[i] = false;
-        plusOne[i] = false;
+//        plusOne[i] = false;
     }
     isRotating = false;
 
@@ -51,62 +51,68 @@ Rubik::Rubik() {
 
 }
 
-void Rubik::startRotation(float deltaTime, SIDE side) {
+void Rubik::startRotation(float deltaTime, SIDE side, bool prime) {
 
-    if(!plusOne[side]){
+//    if(!plusOne[side]){
 
     switch(side){
 
         case T:
+        case TP:
             for(auto c : cubes){
                 if(c->is_top()){
-                    isRotating = c->rotateYTOP(deltaTime);
+                    isRotating = c->rotateYTOP(deltaTime, prime);
 
                 }
             }
             break;
         case D:
+        case DP:
             for(auto c : cubes){
                 if(c->is_down()){
-                    isRotating = c->rotateYDOWN(deltaTime);
+                    isRotating = c->rotateYDOWN(deltaTime, prime);
                 }
             }
             break;
         case L:
+        case LP:
             for(auto c : cubes){
                 if(c->is_left()){
-                    isRotating = c->rotateXLEFT(deltaTime);
+                    isRotating = c->rotateXLEFT(deltaTime, prime);
                 }
             }
             break;
         case R:
+        case RP:
             for(auto c : cubes){
                 if(c->is_right()){
-                    isRotating = c->rotateXRIGHT(deltaTime);
+                    isRotating = c->rotateXRIGHT(deltaTime, prime);
                 }
             }
             break;
         case F:
+        case FP:
             for(auto c : cubes){
                 if(c->is_front()){
-                    isRotating = c->rotateZFRONT(deltaTime);
+                    isRotating = c->rotateZFRONT(deltaTime, prime);
                 }
             }
             break;
         case B:
+        case BP:
             for(auto c : cubes){
                 if(c->is_back()){
-                    isRotating = c->rotateZBACK(deltaTime);
+                    isRotating = c->rotateZBACK(deltaTime, prime);
                 }
             }
             break;
     }
 
     isConcreteRotating[side] = isRotating;
-    plusOne[side] = !isRotating;
-    }
-    if(plusOne[side])
-        plusOne[side] = false;
+//    plusOne[side] = !isRotating;
+//    }
+//    if(plusOne[side])
+//        plusOne[side] = false;
 
     glm::vec3 pos[26] = {
             //TOP

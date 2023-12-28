@@ -61,50 +61,50 @@ bool Cube::rotate(float d, glm::vec3 vec) {
 
 }
 
-bool Cube::rotateYTOP(float d) {
+bool Cube::rotateYTOP(float d, bool prime) {
 
 
-    isRotating = actualSate->rotateYTOP(d);
+    isRotating = actualSate->rotateYTOP(d, prime);
     return isRotating;
 
 }
 
-bool Cube::rotateYDOWN(float d) {
+bool Cube::rotateYDOWN(float d, bool prime) {
 
 
-    isRotating = actualSate->rotateYDOWN(d);
+    isRotating = actualSate->rotateYDOWN(d, prime);
     return isRotating;
 
 }
 
-bool Cube::rotateXLEFT(float d) {
+bool Cube::rotateXLEFT(float d, bool prime) {
 
 
-    isRotating = actualSate->rotateXLEFT(d);
+    isRotating = actualSate->rotateXLEFT(d, prime);
     return isRotating;
 
 }
 
-bool Cube::rotateXRIGHT(float d) {
+bool Cube::rotateXRIGHT(float d, bool prime) {
 
 
-    isRotating = actualSate->rotateXRIGHT(d);
+    isRotating = actualSate->rotateXRIGHT(d, prime);
     return isRotating;
 
 }
 
-bool Cube::rotateZFRONT(float d) {
+bool Cube::rotateZFRONT(float d, bool prime) {
 
 
-    isRotating = actualSate->rotateZFRONT(d);
+    isRotating = actualSate->rotateZFRONT(d, prime);
     return isRotating;
 
 }
 
-bool Cube::rotateZBACK(float d) {
+bool Cube::rotateZBACK(float d, bool prime) {
 
 
-    isRotating = actualSate->rotateZBACK(d);
+    isRotating = actualSate->rotateZBACK(d, prime);
     return isRotating;
 
 }

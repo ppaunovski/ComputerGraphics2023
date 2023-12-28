@@ -17,12 +17,12 @@ public:
     explicit Still(Cube *cube);
 
     bool rotate(float d, glm::vec3 vec) override;
-    bool rotateXLEFT(float d) override;
-    bool rotateXRIGHT(float d) override;
-    bool rotateYTOP(float d) override;
-    bool rotateYDOWN(float d) override;
-    bool rotateZFRONT(float d) override;
-    bool rotateZBACK(float d) override;
+    bool rotateXLEFT(float d, bool prime) override;
+    bool rotateXRIGHT(float d, bool prime) override;
+    bool rotateYTOP(float d, bool prime) override;
+    bool rotateYDOWN(float d, bool prime) override;
+    bool rotateZFRONT(float d, bool prime) override;
+    bool rotateZBACK(float d, bool prime) override;
 
     void translate() override;
 

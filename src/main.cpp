@@ -485,19 +485,46 @@ void processInput(GLFWwindow *window) {
     camera.ProcessKeyboard(LEFT, deltaTime*2);
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
     camera.ProcessKeyboard(RIGHT, deltaTime*2);
-  if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS || rubik.isConcreteRotating[F] || rubik.plusOne[SIDE(F)])
-      rubik.startRotation(deltaTime*2, (SIDE)F);
-    if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS || rubik.isConcreteRotating[B] || rubik.plusOne[SIDE(B)])
-        rubik.startRotation(deltaTime*2, (SIDE)B);
-    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS || rubik.isConcreteRotating[R] || rubik.plusOne[SIDE(R)])
-        rubik.startRotation(deltaTime*2, (SIDE)R);
-    if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS || rubik.isConcreteRotating[L] || rubik.plusOne[SIDE(L)])
-        rubik.startRotation(deltaTime*2, (SIDE)L);
-    if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS || rubik.isConcreteRotating[T] || rubik.plusOne[SIDE(T)])
-        rubik.startRotation(deltaTime*2, (SIDE)T);
-    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || rubik.isConcreteRotating[D] || rubik.plusOne[SIDE(D)])
-        rubik.startRotation(deltaTime*2, (SIDE)D);
-    if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+
+
+        //PRIMES
+        if ((glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) || rubik.isConcreteRotating[FP] )
+            rubik.startRotation(deltaTime*2, (SIDE)FP, true);
+        else if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS || rubik.isConcreteRotating[F] )
+            rubik.startRotation(deltaTime*2, (SIDE)F, false);
+
+        if ((glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) || rubik.isConcreteRotating[BP] )
+            rubik.startRotation(deltaTime*2, (SIDE)BP, true);
+        else if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS || rubik.isConcreteRotating[B] )
+            rubik.startRotation(deltaTime*2, (SIDE)B, false);
+
+        if ((glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) || rubik.isConcreteRotating[RP] )
+            rubik.startRotation(deltaTime*2, (SIDE)RP, true);
+        else if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS || rubik.isConcreteRotating[R] )
+            rubik.startRotation(deltaTime*2, (SIDE)R, false);
+
+        if ((glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) || rubik.isConcreteRotating[LP] )
+            rubik.startRotation(deltaTime*2, (SIDE)LP, true);
+        else  if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS || rubik.isConcreteRotating[L] )
+            rubik.startRotation(deltaTime*2, (SIDE)L, false);
+
+        if ((glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) || rubik.isConcreteRotating[TP] )
+            rubik.startRotation(deltaTime*2, (SIDE)TP, true);
+        else if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS || rubik.isConcreteRotating[T] )
+            rubik.startRotation(deltaTime*2, (SIDE)T, false);
+
+        if ((glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) || rubik.isConcreteRotating[DP] )
+            rubik.startRotation(deltaTime*2, (SIDE)DP, true);
+        else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || rubik.isConcreteRotating[D] )
+            rubik.startRotation(deltaTime*2, (SIDE)D, false);
+
+        //REGULARS
+
+
+
+
+
+  if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
         rubik.rotateOwnAxis(deltaTime, glm::vec3(0.0f,1.0f,0.0f));
 
 

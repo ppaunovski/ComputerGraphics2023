@@ -61,17 +61,17 @@ public:
 
     bool is_back();
 
-    bool rotateZBACK(float d);
+    bool rotateZBACK(float d, bool prime);
 
-    bool rotateZFRONT(float d);
+    bool rotateZFRONT(float d, bool prime);
 
-    bool rotateXRIGHT(float d);
+    bool rotateXRIGHT(float d, bool prime);
 
-    bool rotateXLEFT(float d);
+    bool rotateXLEFT(float d, bool prime);
 
-    bool rotateYDOWN(float d);
+    bool rotateYDOWN(float d, bool prime);
 
-    bool rotateYTOP(float d);
+    bool rotateYTOP(float d, bool prime);
 };
 
 

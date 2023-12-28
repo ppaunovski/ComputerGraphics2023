@@ -21,32 +21,32 @@ void Still::stop() {
 
 Still::Still(Cube *cube) : cube(cube) {}
 
-bool Still::rotateXLEFT(float d) {
+bool Still::rotateXLEFT(float d, bool prime) {
     this->cube->actualSate = this->cube->is_Rotating;
     return false;
 }
 
-bool Still::rotateXRIGHT(float d) {
+bool Still::rotateXRIGHT(float d, bool prime) {
     this->cube->actualSate = this->cube->is_Rotating;
     return false;
 }
 
-bool Still::rotateYTOP(float d) {
+bool Still::rotateYTOP(float d, bool prime) {
     this->cube->actualSate = this->cube->is_Rotating;
     return false;
 }
 
-bool Still::rotateYDOWN(float d) {
+bool Still::rotateYDOWN(float d, bool prime) {
     this->cube->actualSate = this->cube->is_Rotating;
     return false;
 }
 
-bool Still::rotateZFRONT(float d) {
+bool Still::rotateZFRONT(float d, bool prime) {
     this->cube->actualSate = this->cube->is_Rotating;
     return false;
 }
 
-bool Still::rotateZBACK(float d) {
+bool Still::rotateZBACK(float d, bool prime) {
     this->cube->actualSate = this->cube->is_Rotating;
     return false;
 }

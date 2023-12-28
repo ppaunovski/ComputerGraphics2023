@@ -18,17 +18,17 @@ public:
      virtual bool rotateY(float d);
      virtual bool rotateZ(float d);
 
-     virtual bool rotateYTOP(float d);
+     virtual bool rotateYTOP(float d, bool prime);
 
-     virtual bool rotateYDOWN(float d);
+     virtual bool rotateYDOWN(float d, bool prime);
 
-     virtual bool rotateXLEFT(float d);
+     virtual bool rotateXLEFT(float d, bool prime);
 
-     virtual bool rotateXRIGHT(float d);
+     virtual bool rotateXRIGHT(float d, bool prime);
 
-     virtual bool rotateZFRONT(float d);
+     virtual bool rotateZFRONT(float d, bool prime);
 
-     virtual bool rotateZBACK(float d);
+     virtual bool rotateZBACK(float d, bool prime);
  };
 
 

@@ -42,7 +42,9 @@ void Rotating::stop() {
 Rotating::Rotating(Cube *cube) : cube(cube) {
     this->start = 0.0f;
     this->goal = 90.0f;
+    this->goalN = -90.0f;
     this->increment = 30.f;
+    this->decrement = -30.f;
     this->isRotating = false;
     this->rot_left = std::map<int, int>();
     this->rot_right = std::map<int, int>();
@@ -168,21 +170,35 @@ Rotating::Rotating(Cube *cube) : cube(cube) {
 
 }
 
-bool Rotating::rotateXLEFT(float d) {
+
+bool Rotating::rotateXLEFT(float d, bool prime) {
     float velocity = 2.5f * d;
-    if(animation){
-        if(increment * velocity + start > goal){
-//        glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(goal - (start)), glm::vec3(1.0f, 0.0f, 0.0f));
-//        cube->aggregate = cube->aggregate * rotate;
-            cube->model = glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(1.0f, 0.0f, 0.0f));
+
+    if(!prime){
+        if(animation){
+            if(increment * velocity + start > goal){
+                cube->model = glm::rotate(cube->model, glm::radians(goal - (start)), glm::vec3(1.0f, 0.0f, 0.0f));
+            }
+            else{
+                cube->model = glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f));
+            }
         }
-        else{
-//        glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f));
-//        cube->aggregate = cube->aggregate * rotate;
-            cube->model = glm::rotate(cube->model, glm::radians(increment * velocity), glm::vec3(1.0f, 0.0f, 0.0f));
-        }
+        start += increment*velocity;
     }
-    start += increment*velocity;
+    else{
+        if(animation){
+            if(start + decrement * velocity < goalN){
+                cube->model = glm::rotate(cube->model, glm::radians(goalN - (start)), glm::vec3(1.0f, 0.0f, 0.0f));
+            }
+            else{
+                cube->model = glm::rotate(cube->model, glm::radians(decrement * velocity), glm::vec3(1.0f, 0.0f, 0.0f));
+            }
+        }
+        start += decrement*velocity;
+    }
+
+
+
 
     if(start > goal){
         for (Cube* c : cube->rubik) {
@@ -200,32 +216,33 @@ bool Rotating::rotateXLEFT(float d) {
             }
         }
 
-
-
-//        std::cout<<"Before reset-------------------------"<<std::endl;
-//        for(int i=0; i<4; i++){
-//            for(int j=0; j<4; j++){
-//                std::cout<<cube->model[i][j]<<" ";
-//            }
-//            std::cout<<"\n";
-//        }
-//        cube->model = cube->model * glm::inverse(cube->aggregate) ;
         cube->model = glm::mat4(1.0f);
-//        std::cout<<"After reset-------------------------"<<std::endl;
-//        for(int i=0; i<4; i++){
-//            for(int j=0; j<4; j++){
-//                std::cout<<cube->model[i][j]<<" ";
-//            }
-//            std::cout<<"\n";
-//        }
+        stop();
+    }
+    else if(start < goalN){
+        for (Cube* c : cube->rubik) {
+            if(c->pos == rot_left[cube->pos]){
+                std::array<std::array<float,3>,6> allColors = c->vertices->allColors();
+                cube->vertices->rotateXPrime(
+                        allColors[BACK_COLOR],
+                        allColors[FRONT_COLOR],
+                        allColors[TOP_COLOR],
+                        allColors[DOWN_COLOR],
+                        allColors[LEFT_COLOR],
+                        allColors[RIGHT_COLOR]
+                );
+                break;
+            }
+        }
 
+        cube->model = glm::mat4(1.0f);
         stop();
     }
 
     return true;
 }
 
-bool Rotating::rotateXRIGHT(float d) {
+bool Rotating::rotateXRIGHT(float d, bool prime) {
     float velocity = 2.5f * d;
     if(animation){
         if(increment * velocity + start > goal){
@@ -264,7 +281,7 @@ bool Rotating::rotateXRIGHT(float d) {
     return true;
 }
 
-bool Rotating::rotateYTOP(float d) {
+bool Rotating::rotateYTOP(float d, bool prime) {
     float velocity = 2.5f * d;
     if(animation){
         if(increment * velocity + start > goal){
@@ -304,7 +321,7 @@ bool Rotating::rotateYTOP(float d) {
     return true;
 }
 
-bool Rotating::rotateYDOWN(float d) {
+bool Rotating::rotateYDOWN(float d, bool prime) {
     float velocity = 2.5f * d;
     if(animation){
         if(increment * velocity + start > goal){
@@ -339,7 +356,7 @@ bool Rotating::rotateYDOWN(float d) {
     return true;
 }
 
-bool Rotating::rotateZFRONT(float d) {
+bool Rotating::rotateZFRONT(float d, bool prime) {
     float velocity = 2.5f * d;
     if(animation){
         if(increment * velocity + start > goal){
@@ -378,7 +395,7 @@ bool Rotating::rotateZFRONT(float d) {
     return true;
 }
 
-bool Rotating::rotateZBACK(float d) {
+bool Rotating::rotateZBACK(float d, bool prime) {
     float velocity = 2.5f * d;
     if(animation){
         if(increment * velocity + start > goal){

@@ -28,26 +28,26 @@ bool CubeState::rotateZ(float d) {
     return false;
 }
 
-bool CubeState::rotateYTOP(float d) {
+bool CubeState::rotateYTOP(float d, bool prime) {
     return false;
 }
 
-bool CubeState::rotateYDOWN(float d) {
+bool CubeState::rotateYDOWN(float d, bool prime) {
     return false;
 }
 
-bool CubeState::rotateXLEFT(float d) {
+bool CubeState::rotateXLEFT(float d, bool prime) {
     return false;
 }
 
-bool CubeState::rotateXRIGHT(float d) {
+bool CubeState::rotateXRIGHT(float d, bool prime) {
     return false;
 }
 
-bool CubeState::rotateZFRONT(float d) {
+bool CubeState::rotateZFRONT(float d, bool prime) {
     return false;
 }
 
-bool CubeState::rotateZBACK(float d) {
+bool CubeState::rotateZBACK(float d, bool prime) {
     return false;
 }
